@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://yjl7pni13bil"]
+
+[ext_resource type="Script" uid="uid://cl1uq3lsg8moi" path="res://gameplay/coreGameplay/GameManager.gd" id="1_odk7f"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_odk7f")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0

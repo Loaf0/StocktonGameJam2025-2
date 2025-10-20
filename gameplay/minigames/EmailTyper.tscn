@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://svgpak5i10mb"]
+
+[ext_resource type="Script" uid="uid://ciep6jw7noat7" path="res://gameplay/minigames/email_typer.gd" id="1_igwgv"]
+[ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="2_6wbtl"]
+
+[sub_resource type="Animation" id="Animation_6wbtl"]
+resource_name = "Pass"
+
+[sub_resource type="Animation" id="Animation_2o2ba"]
+resource_name = "Fail"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ts7bf"]
+_data = {
+&"Fail": SubResource("Animation_2o2ba"),
+&"Pass": SubResource("Animation_6wbtl")
+}
+
+[node name="EmailTyper" type="Node2D"]
+script = ExtResource("1_igwgv")
+
+[node name="MinigameTimer" parent="." instance=ExtResource("2_6wbtl")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
+offset_top = 231.0
+offset_right = 1152.0
+offset_bottom = 648.0
+columns = 9
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer"]
+offset_top = 41.0
+offset_right = 1155.0
+offset_bottom = 196.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ts7bf")
+}

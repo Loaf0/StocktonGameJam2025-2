@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://4tdulc68ydv"]
+
+[ext_resource type="Script" uid="uid://cs5u1786mpxuy" path="res://gameplay/minigames/robo_repair.gd" id="1_tyev6"]
+[ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="2_yseuw"]
+
+[sub_resource type="Animation" id="Animation_usjo3"]
+resource_name = "Fail"
+
+[sub_resource type="Animation" id="Animation_2pff3"]
+resource_name = "Pass"
+
+[sub_resource type="Animation" id="Animation_16em2"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_un7j3"]
+_data = {
+&"Fail": SubResource("Animation_usjo3"),
+&"Pass": SubResource("Animation_2pff3"),
+&"RESET": SubResource("Animation_16em2")
+}
+
+[node name="RoboRepair" type="Node2D"]
+script = ExtResource("1_tyev6")
+
+[node name="MinigameTimer" parent="." instance=ExtResource("2_yseuw")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_un7j3")
+}
