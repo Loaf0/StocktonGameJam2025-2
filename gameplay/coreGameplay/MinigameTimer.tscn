@@ -3,12 +3,8 @@
 [ext_resource type="Script" uid="uid://cl1nnqsldsfm4" path="res://gameplay/coreGameplay/minigame_timer.gd" id="1_ikv8c"]
 
 [node name="MinigameTimer" type="CanvasLayer"]
+layer = 8
 script = ExtResource("1_ikv8c")
-duration = null
-auto_start = null
-color_good = null
-color_warn = null
-color_critical = null
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -17,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="Control"]
 layout_mode = 0

@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://ciep6jw7noat7" path="res://gameplay/minigames/email_typer.gd" id="1_igwgv"]
 [ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="2_6wbtl"]
 
-[sub_resource type="Animation" id="Animation_6wbtl"]
-resource_name = "Pass"
-
 [sub_resource type="Animation" id="Animation_2o2ba"]
 resource_name = "Fail"
+
+[sub_resource type="Animation" id="Animation_6wbtl"]
+resource_name = "Pass"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ts7bf"]
 _data = {
@@ -21,7 +21,6 @@ script = ExtResource("1_igwgv")
 [node name="MinigameTimer" parent="." instance=ExtResource("2_6wbtl")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 10
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
 offset_top = 231.0

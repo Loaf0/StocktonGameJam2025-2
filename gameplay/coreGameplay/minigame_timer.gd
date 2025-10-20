@@ -15,6 +15,7 @@ var elapsed: float = 0.0
 @onready var bar: ProgressBar = $Control/ProgressBar
 
 func _ready():
+	$Control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	bar.value = 100
 	if auto_start:
 		start()

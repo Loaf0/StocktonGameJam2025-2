@@ -10,7 +10,7 @@ resource_name = "Fail"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HealthDisplay:position")
+tracks/0/path = NodePath("Control/HealthDisplay:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -25,7 +25,7 @@ resource_name = "Pass"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HealthDisplay:rotation")
+tracks/0/path = NodePath("Control/HealthDisplay:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -40,7 +40,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HealthDisplay:rotation")
+tracks/0/path = NodePath("Control/HealthDisplay:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -52,7 +52,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("HealthDisplay:position")
+tracks/1/path = NodePath("Control/HealthDisplay:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -70,10 +70,20 @@ _data = {
 }
 
 [node name="TestAnimation" type="CanvasLayer"]
-layer = 2
+layer = 16
 script = ExtResource("1_rmv5i")
 
-[node name="HealthDisplay" type="HBoxContainer" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HealthDisplay" type="HBoxContainer" parent="Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -86,28 +96,29 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 109
 
-[node name="Control" type="Control" parent="HealthDisplay"]
+[node name="Control" type="Control" parent="Control/HealthDisplay"]
 layout_mode = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="HealthDisplay/Control"]
+[node name="Sprite2D" type="Sprite2D" parent="Control/HealthDisplay/Control"]
 texture = SubResource("PlaceholderTexture2D_rmv5i")
 
-[node name="Control2" type="Control" parent="HealthDisplay"]
+[node name="Control2" type="Control" parent="Control/HealthDisplay"]
 layout_mode = 2
 
-[node name="Sprite2D2" type="Sprite2D" parent="HealthDisplay/Control2"]
+[node name="Sprite2D2" type="Sprite2D" parent="Control/HealthDisplay/Control2"]
 texture = SubResource("PlaceholderTexture2D_rmv5i")
 
-[node name="Control3" type="Control" parent="HealthDisplay"]
+[node name="Control3" type="Control" parent="Control/HealthDisplay"]
 layout_mode = 2
 
-[node name="Sprite2D3" type="Sprite2D" parent="HealthDisplay/Control3"]
+[node name="Sprite2D3" type="Sprite2D" parent="Control/HealthDisplay/Control3"]
 texture = SubResource("PlaceholderTexture2D_rmv5i")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
 offset_left = 535.0
 offset_top = 50.0
-offset_right = 575.0
+offset_right = 613.0
 offset_bottom = 73.0
 text = "TEST TEXT"
 horizontal_alignment = 1

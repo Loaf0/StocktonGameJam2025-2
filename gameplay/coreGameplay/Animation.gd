@@ -3,8 +3,11 @@ class_name FlavorAnimation
 
 @export var flavor_type : String = "Pass"
 @onready var anim: AnimationPlayer = $AnimationPlayer
-@onready var label : Label = $Label
-@onready var health_display: Control = $HealthDisplay
+@onready var label : Label = $Control/Label
+@onready var health_display: Control = $Control/HealthDisplay
+
+func _ready() -> void:
+	$Control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func play(sucess : bool, health : int):
 	flavor_type = "Pass" if sucess else "Fail"
