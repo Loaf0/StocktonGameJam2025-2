@@ -14,11 +14,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -659)]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ybhub"]
 resource_name = "fade_out"
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -26,14 +27,15 @@ tracks/0/path = NodePath("ColorRect:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -650)]
+"values": [Vector2(0, 0), Vector2(0, -201)]
 }
 
-[sub_resource type="Animation" id="Animation_hs0ek"]
-resource_name = "fade_in"
+[sub_resource type="Animation" id="Animation_ncb72"]
+resource_name = "fade_out"
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -41,17 +43,17 @@ tracks/0/path = NodePath("ColorRect:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -650), Vector2(0, 0)]
+"values": [Vector2(0, -201), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2vh3t"]
 _data = {
 &"RESET": SubResource("Animation_2vh3t"),
 &"fade_in": SubResource("Animation_ybhub"),
-&"fade_out": SubResource("Animation_hs0ek")
+&"fade_out": SubResource("Animation_ncb72")
 }
 
 [node name="JailTransition" type="CanvasLayer"]
@@ -64,8 +66,10 @@ libraries = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_top = -659.0
-offset_right = 1154.0
-offset_bottom = -13.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(358, 220)
 color = Color(0.446777, 0.44677705, 0.44677705, 1)

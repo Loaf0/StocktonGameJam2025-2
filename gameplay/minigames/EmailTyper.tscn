@@ -1,7 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://svgpak5i10mb"]
+[gd_scene load_steps=9 format=3 uid="uid://svgpak5i10mb"]
 
 [ext_resource type="Script" uid="uid://ciep6jw7noat7" path="res://gameplay/minigames/email_typer.gd" id="1_igwgv"]
 [ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="2_6wbtl"]
+[ext_resource type="Texture2D" uid="uid://c7omm5xumtc5k" path="res://assets/minigames/EmailTyper/keyboardgame.png" id="3_ja2k8"]
+[ext_resource type="Texture2D" uid="uid://uedn6s30jp3" path="res://assets/minigames/EmailTyper/button.png" id="4_yamot"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ja2k8"]
+font_size = 10
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_2o2ba"]
 resource_name = "Fail"
@@ -18,20 +24,646 @@ _data = {
 [node name="EmailTyper" type="Node2D"]
 script = ExtResource("1_igwgv")
 
-[node name="MinigameTimer" parent="." instance=ExtResource("2_6wbtl")]
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Keyboardgame" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ja2k8")
+
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
-offset_top = 231.0
-offset_right = 1152.0
-offset_bottom = 648.0
+anchors_preset = -1
+anchor_left = 0.120000005
+anchor_top = 0.615
+anchor_right = 0.88000005
+anchor_bottom = 0.89500004
+offset_top = 1.0
+offset_right = -1.5258789e-05
+offset_bottom = -5.0000153
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
 columns = 9
 
+[node name="Button1" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button1/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button3/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button4/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button5" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button5/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button6" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button6/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button7" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button7"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button7/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button8" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button8"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button8/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button9" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button9"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button9/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button10" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button10"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button10/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button11" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button11"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button11/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button12" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button12"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button12/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button13" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button13"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button13/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button14" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button14"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button14/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button15" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button15"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button15/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button16" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button16"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button16/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button17" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button17"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button17/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button18" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button18"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button18/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button19" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button19"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button19/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button20" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button20"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button20/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button21" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button21"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button21/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button22" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button22"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button22/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button23" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button23"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button23/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button24" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button24"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button24/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button25" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button25"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button25/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button26" type="TextureButton" parent="CanvasLayer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_yamot")
+
+[node name="Control" type="Control" parent="CanvasLayer/GridContainer/Button26"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button26/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+label_settings = SubResource("LabelSettings_ja2k8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Label" type="RichTextLabel" parent="CanvasLayer"]
-offset_top = 41.0
-offset_right = 1155.0
-offset_bottom = 196.0
+anchors_preset = -1
+anchor_left = 0.335
+anchor_top = 0.305
+anchor_right = 0.87500006
+anchor_bottom = 0.58500004
+offset_right = -1.5258789e-05
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+text = "READ KAGURA BACHI TEST EMAIL SENDING"
+
+[node name="MinigameTimer" parent="." instance=ExtResource("2_6wbtl")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -1,8 +1,4 @@
-extends Node2D
-
-signal minigame_finished(success: bool)
-
-@export var difficulty: int = 1
+extends Minigame
 
 @onready var timer := $MinigameTimer
 @onready var anim := $AnimationPlayer
@@ -29,6 +25,7 @@ func start():
 	var settings = difficulty_settings.get(difficulty, difficulty_settings[1])
 	timer.start(settings["time_limit"])
 	timer.time_up.connect(_on_time_up)
+	_randomize_start_state()
 	_generate_target_config()
 	_display_instructions()
 	for gear in gears:
@@ -39,6 +36,21 @@ func start():
 	for t in toggles:
 		t.toggled.connect(_on_toggle_changed)
 	submit.pressed.connect(_on_submit_pressed)
+
+func _randomize_start_state():
+	for gear in gears:
+		if gear and "positions" in gear:
+			var start_index = randi() % gear.positions.size()
+			if "set_position_index" in gear:
+				gear.set_position_index(start_index)
+			elif "current_index" in gear:
+				gear.current_index = start_index
+				if "_update_rotation" in gear:
+					gear._update_rotation()
+	for s in sliders:
+		s.value = randf_range(s.min_value, s.max_value)
+	for t in toggles:
+		t.button_pressed = bool(randi() % 2)
 
 func _generate_target_config():
 	target_config.clear()

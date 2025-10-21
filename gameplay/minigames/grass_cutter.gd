@@ -11,10 +11,10 @@ var time_accum := 0.0
 var playing : bool = false
 var current_angle : float = 0.0
 
-@onready var rotator := $Rotator
-@onready var target_marker := $TargetMarker
-@onready var left_threshold := $LeftThreshold
-@onready var right_threshold := $RightThreshold
+@onready var rotator := $CanvasLayer/Center/Rotator
+@onready var target_marker := $CanvasLayer/Center/TargetMarker
+@onready var left_threshold := $CanvasLayer/Center/LeftThreshold
+@onready var right_threshold := $CanvasLayer/Center/RightThreshold
 
 func start():
 	target_marker.rotation_degrees = target_angle

@@ -3,8 +3,8 @@ class_name Minigame
 
 signal minigame_finished(success: bool)
 
-var speed : float = 1.0
-var difficulty : int = 1
+@export var speed : float = 1.0
+@export var difficulty : int = 1
 
 func start():
 	pass

@@ -7,5 +7,5 @@
 script = ExtResource("1_dgvil")
 
 [node name="Image" type="Sprite2D" parent="."]
-scale = Vector2(0.08, 0.08)
+scale = Vector2(0.014799997, 0.015399994)
 texture = ExtResource("2_wsof3")

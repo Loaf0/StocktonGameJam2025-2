@@ -13,18 +13,18 @@ offset_bottom = 40.0
 
 [node name="win" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 323.0
-offset_top = 208.0
-offset_right = 361.0
-offset_bottom = 239.0
+offset_left = 22.0
+offset_top = 15.0
+offset_right = 60.0
+offset_bottom = 46.0
 text = "Win
 "
 
 [node name="fail" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 638.0
-offset_top = 233.0
-offset_right = 671.0
-offset_bottom = 264.0
+offset_left = 98.0
+offset_top = 133.0
+offset_right = 131.0
+offset_bottom = 164.0
 text = "fail
 "

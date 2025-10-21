@@ -35,17 +35,17 @@ func start():
 	_setup_timer()
 
 func _setup_keyboard():
-	for child in grid.get_children():
-		child.queue_free()
+	var buttons = grid.get_children()
 	
 	shuffled_keys = all_letters.split("")
 	shuffled_keys.shuffle()
 	
-	for letter in shuffled_keys:
-		var btn := Button.new()
-		btn.text = letter
+	for i in range(buttons.size()):
+		var btn = buttons[i]
+		
+		var letter = shuffled_keys[i % shuffled_keys.size()]
+		btn.get_node("Control/Label").text = letter
 		btn.pressed.connect(_on_key_pressed.bind(letter))
-		grid.add_child(btn)
 
 func _setup_timer():
 	var base_time := 15.0
@@ -61,6 +61,7 @@ func _setup_timer():
 	timer.time_up.connect(_on_time_up)
 
 func _on_key_pressed(letter: String) -> void:
+	print("pressed :" + letter)
 	if current_index >= target_text.length():
 		return
 
@@ -76,7 +77,7 @@ func _on_key_pressed(letter: String) -> void:
 		current_index += 1
 		typed_text = target_text.substr(0, current_index)
 	else:
-		typed_text += "[X]"
+		typed_text += ""
 
 	_update_label()
 	_skip_non_letters()

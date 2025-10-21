@@ -1,19 +1,19 @@
 extends Minigame
 
 @onready var bars := [
-	$CanvasLayer/Bar1,
-	$CanvasLayer/Bar2,
-	$CanvasLayer/Bar3
+	$CanvasLayer/Control/ButtonContainer/Bar1,
+	$CanvasLayer/Control/ButtonContainer2/Bar1,
+	$CanvasLayer/Control/ButtonContainer3/Bar1
 ]
 @onready var buttons := [
-	$CanvasLayer/Bar1/Button,
-	$CanvasLayer/Bar2/Button,
-	$CanvasLayer/Bar3/Button
+	$CanvasLayer/Control/ButtonContainer/Button,
+	$CanvasLayer/Control/ButtonContainer2/Button,
+	$CanvasLayer/Control/ButtonContainer3/Button
 ]
 @onready var targets := [
-	$CanvasLayer/Bar1/ColorRect,
-	$CanvasLayer/Bar2/ColorRect,
-	$CanvasLayer/Bar3/ColorRect
+	$CanvasLayer/Control/ButtonContainer/ColorRect,
+	$CanvasLayer/Control/ButtonContainer2/ColorRect,
+	$CanvasLayer/Control/ButtonContainer3/ColorRect
 ]
 
 @onready var timer := $MinigameTimer
@@ -25,37 +25,46 @@ var active := [true, true, true]
 var perfect_ranges: Array = []
 
 var difficulty_settings = {
-	1: {"range_size": 0.25, "time_limit": 20.0, "speed": 1.0},
-	2: {"range_size": 0.18, "time_limit": 15.0, "speed": 1.2},
-	3: {"range_size": 0.12, "time_limit": 10.0, "speed": 1.5}
+	1: {"range_size": 0.25, "time_limit": 10.0, "speed": 1.0},
+	2: {"range_size": 0.18, "time_limit": 7.5, "speed": 1.2},
+	3: {"range_size": 0.12, "time_limit": 5.0, "speed": 1.5}
 }
 
 func start():
 	randomize()
-
 	var settings = difficulty_settings.get(difficulty, difficulty_settings[1])
 
 	perfect_ranges.clear()
 	for i in range(3):
-		var start_loc = randf_range(0.2, 0.7)
+		var start_loc = randf_range(0.05, 0.95 - settings["range_size"])
 		var size = settings["range_size"]
 		perfect_ranges.append(Vector2(start_loc, start_loc + size))
 		bounce_speed[i] = settings["speed"] + randf_range(-0.2, 0.2)
-
-	_setup_targets()
+	
+	print(settings)
+	print("Difficulty : " + str(difficulty))
+	
+	await _setup_targets()
 	_setup_buttons()
 	timer.start(settings["time_limit"])
 	timer.time_up.connect(_on_time_up)
 
-func _setup_targets():
+func _setup_targets() -> void:
+	await get_tree().process_frame
 	for i in range(3):
-		var r = perfect_ranges[i]
-		var bar = bars[i]
 		var target = targets[i]
+		var r = perfect_ranges[i]
 
-		var total_width = bar.get_size().x
-		target.position.x = r.x * total_width
-		target.size.x = (r.y - r.x) * total_width
+		target.anchor_left = r.x
+		target.anchor_right = r.y
+		target.anchor_top = 0
+		target.anchor_bottom = 1
+
+		target.offset_left = 0
+		target.offset_right = 0
+		target.offset_top = 0
+		target.offset_bottom = 0
+
 		target.color = Color(0.0, 1.0, 0.0, 0.25)
 
 func _setup_buttons():

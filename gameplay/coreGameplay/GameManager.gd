@@ -3,10 +3,11 @@ extends Node
 @export_dir var minigames_dir: String = "res://gameplay/minigames/"
 @export var transition_scene: PackedScene = preload("res://gameplay/transitions/JailTransition.tscn")
 @export var flavor_scene: PackedScene = preload("res://gameplay/animations/TestAnimation.tscn")
+@export var forced_first_minigame: PackedScene
 @export var health: int = 3
 @export var recent_queue_size: int = 3
 @export var base_speed: float = 1.0
-@export var base_difficulty: float = 1.0
+@export var base_difficulty: int = 1
 @export var speed_increment: float = 0.1
 
 var minigame_paths: Array = []
@@ -17,6 +18,7 @@ var current_speed := base_speed
 var current_difficulty := base_difficulty
 var transition: Transition = null
 var last_minigame_success: bool = true
+var first_forced := true
 
 func _ready():
 	minigame_paths = _get_all_minigames(minigames_dir)
@@ -53,24 +55,23 @@ func load_next_minigame():
 		add_child(flavor)
 		await flavor.play(last_minigame_success, health)
 		flavor.queue_free()
-	var scene_path = _choose_next_minigame()
-	if not scene_path:
-		push_error("No minigames")
-		return
-	var scene = load(scene_path)
+	var scene: PackedScene
+	if first_forced and forced_first_minigame:
+		scene = forced_first_minigame
+		first_forced = false
+	else:
+		var path = _choose_next_minigame()
+		scene = load(path)
 	if not scene:
-		push_error("Could not load scene: %s" % scene_path)
-		load_next_minigame()
+		push_error("Failed to load minigame")
 		return
 	current_game = scene.instantiate()
 	add_child(current_game)
 	current_game.minigame_finished.connect(_on_minigame_finished)
-	if "speed" in current_game:
-		current_game.speed = current_speed
-	if "difficulty" in current_game:
-		current_game.difficulty = current_difficulty
+	current_game.speed = current_speed
+	current_game.difficulty = current_difficulty
 	current_game.start()
-	print("Starting : ", scene_path)
+	print("Starting minigame: ", scene.resource_path)
 	await transition.play_in()
 
 func _on_minigame_finished(success: bool):
@@ -91,13 +92,11 @@ func _choose_next_minigame() -> String:
 		return not recent_minigames.has(path)
 	)
 	var temp_queue = recent_minigames.duplicate()
-	
 	while available.is_empty() and temp_queue.size() > 0:
 		temp_queue.pop_front()
 		available = minigame_paths.filter(func(path):
 			return not temp_queue.has(path)
 	)
-	
 	if available.is_empty():
 		recent_minigames.clear()
 		available = minigame_paths.duplicate()
