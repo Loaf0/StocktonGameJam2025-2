@@ -200,3 +200,5 @@ modulate = Color(1, 1, 1, 0)
 position = Vector2(592, 353)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_2iomx")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

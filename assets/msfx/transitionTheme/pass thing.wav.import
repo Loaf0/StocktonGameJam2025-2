@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bhi6lbjhf4nvi"
+path="res://.godot/imported/pass thing.wav-df76807fbca9c0784a20a559e4218fba.sample"
+
+[deps]
+
+source_file="res://assets/msfx/transitionTheme/pass thing.wav"
+dest_files=["res://.godot/imported/pass thing.wav-df76807fbca9c0784a20a559e4218fba.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -16,6 +16,8 @@ extends Minigame
 	$CanvasLayer/Control/ButtonContainer3/ColorRect
 ]
 
+@onready var music_player = $AudioStreamPlayer2D
+@onready var music = preload("res://assets/msfx/minigameMusic/baking thing.wav")
 @onready var timer := $MinigameTimer
 @onready var anim := $AnimationPlayer
 
@@ -29,6 +31,8 @@ var difficulty_settings = {
 	2: {"range_size": 0.18, "time_limit": 7.5, "speed": 1.2},
 	3: {"range_size": 0.12, "time_limit": 5.0, "speed": 1.5}
 }
+
+const FADE_TIME = 1.0
 
 func start():
 	randomize()
@@ -44,10 +48,26 @@ func start():
 	print(settings)
 	print("Difficulty : " + str(difficulty))
 	
+	_fade_in_music()
+	
 	await _setup_targets()
 	_setup_buttons()
 	timer.start(settings["time_limit"])
 	timer.time_up.connect(_on_time_up)
+
+func _fade_in_music():
+	music_player.stream = music
+	music_player.volume_db = -80.0
+	music_player.play()
+	
+	var tween = create_tween()
+	tween.tween_property(music_player, "volume_db", Settings.MUSIC_VOLUME_DB, FADE_TIME)
+	
+func _fade_out_music():
+	var tween = create_tween()
+	tween.tween_property(music_player, "volume_db", -80.0, FADE_TIME)
+	await tween.finished
+	music_player.stop()
 
 func _setup_targets() -> void:
 	await get_tree().process_frame
@@ -72,6 +92,12 @@ func _setup_buttons():
 		buttons[i].pressed.connect(_on_button_pressed.bind(i))
 		active[i] = true
 		buttons[i].disabled = false
+
+func _disable_all_buttons():
+	for button in buttons:
+		button.disabled = true
+	for i in range(active.size()):
+		active[i] = false
 
 func _process(delta: float) -> void:
 	for i in range(3):
@@ -100,6 +126,8 @@ func _on_button_pressed(i: int):
 
 	if v < r.x or v > r.y:
 		timer.stop()
+		_disable_all_buttons() 
+		await _fade_out_music()
 		await _play_finish_animation(false)
 		emit_signal("minigame_finished", false)
 		return
@@ -115,14 +143,22 @@ func _check_end_condition():
 			var r = perfect_ranges[i]
 			if v < r.x or v > r.y:
 				success = false
-		await _play_finish_animation(success)
+		
+		if not success:
+			_disable_all_buttons() 
+		
+		_play_finish_animation(success)
+		await _fade_out_music()
 		emit_signal("minigame_finished", success)
 
 func _on_time_up():
+	timer.stop()
+	_disable_all_buttons()
+	await _fade_out_music()
 	await _play_finish_animation(false)
 	emit_signal("minigame_finished", false)
 
-func _play_finish_animation(success: bool):
+func _play_finish_animation(success: bool):    
 	if success:
 		anim.play("Pass")
 	else:

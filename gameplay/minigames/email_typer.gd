@@ -9,6 +9,11 @@ extends Minigame
 
 @export var num_letters_to_type := 5
 
+@onready var music_player = $AudioStreamPlayer2D
+@onready var music = preload("res://assets/msfx/minigameMusic/email thing.wav")
+
+@onready var key_press_sfx = preload("res://assets/minigames/EmailTyper/keypress.mp3")
+
 @onready var label_email := $CanvasLayer/Label
 @onready var grid := $CanvasLayer/GridContainer
 @onready var timer := $MinigameTimer
@@ -26,6 +31,8 @@ var shuffled_keys: Array = []
 var all_letters := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 var highlight_active := false
 
+const FADE_TIME = 1.0
+
 const KEY_SHADER = preload("res://assets/minigames/EmailTyper/EmailTyper.gdshader")
 
 func start():
@@ -41,6 +48,7 @@ func start():
 	_update_label()
 	_setup_keyboard()
 	_setup_timer()
+	_fade_in_music()
 
 func _process(_delta):
 	if not timer.running or highlight_active:
@@ -133,10 +141,13 @@ func _on_key_pressed(letter: String) -> void:
 	_skip_non_letters()
 	if current_index >= target_text.length():
 		timer.stop()
+		_fade_out_music()
 		await _play_finish_animation(true)
 		emit_signal("minigame_finished", true)
 		return
-
+	
+	_play_one_shot_sfx(key_press_sfx, 0.02)
+	
 	var expected := target_text[current_index].to_upper()
 	if letter == expected:
 		current_index += 1
@@ -152,6 +163,7 @@ func _on_key_pressed(letter: String) -> void:
 
 	if current_index >= target_text.length():
 		timer.stop()
+		_fade_out_music()
 		await _play_finish_animation(true)
 		emit_signal("minigame_finished", true)
 
@@ -164,6 +176,7 @@ func _skip_non_letters():
 
 func _on_time_up() -> void:
 	timer.stop()
+	_fade_out_music()
 	await _play_finish_animation(false)
 	emit_signal("minigame_finished", false)
 
@@ -177,3 +190,30 @@ func _play_finish_animation(success: bool):
 func _update_label():
 	var untyped = target_text.substr(current_index, target_text.length() - current_index)
 	label_email.bbcode_text = typed_text + "[color=#6b6b6b]" + untyped + "[/color]_"
+
+func _fade_in_music():
+	music_player.stream = music
+	music_player.volume_db = -80.0
+	music_player.play()
+	
+	var tween = create_tween()
+	tween.tween_property(music_player, "volume_db", Settings.MUSIC_VOLUME_DB, FADE_TIME)
+	
+func _fade_out_music():
+	var tween = create_tween()
+	tween.tween_property(music_player, "volume_db", -80.0, FADE_TIME)
+	await tween.finished
+	music_player.stop()
+
+func _play_one_shot_sfx(sfx: AudioStream, pitch_range : float = 0.1):
+	var player = AudioStreamPlayer.new()
+	add_child(player)
+	player.stream = sfx
+	
+	var min_pitch = 1.0 - pitch_range
+	var max_pitch = 1.0 + pitch_range
+	
+	player.pitch_scale = randf_range(min_pitch, max_pitch)
+	
+	player.finished.connect(player.queue_free)
+	player.play()

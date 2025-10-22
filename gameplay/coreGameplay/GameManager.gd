@@ -1,5 +1,10 @@
 extends Node
 
+@onready var audio_player = $AudioStreamPlayer2D
+@onready var transition_mfx = preload("res://assets/msfx/transitionTheme/intermission thing.wav")
+@onready var pass_mfx = preload("res://assets/msfx/transitionTheme/pass thing.wav")
+@onready var fail_mfx = preload("res://assets/msfx/transitionTheme/fail thing.wav")
+
 @export_dir var minigames_dir: String = "res://gameplay/minigames/"
 @export var transition_scene: PackedScene = preload("res://gameplay/transitions/JailTransition.tscn")
 @export var flavor_scene: PackedScene = preload("res://gameplay/animations/TestAnimation.tscn")
@@ -8,7 +13,7 @@ extends Node
 @export var recent_queue_size: int = 3
 @export var base_speed: float = 1.0
 @export var base_difficulty: int = 1
-@export var speed_increment: float = 0.1
+@export var speed_increment: float = 0.075
 
 var minigame_paths: Array = []
 var recent_minigames: Array = []
@@ -54,7 +59,12 @@ func load_next_minigame():
 	if not first_forced:
 		var flavor = flavor_scene.instantiate()
 		add_child(flavor)
-		await flavor.play(last_minigame_success, health)
+		#await flavor.play(last_minigame_success, health)
+		flavor.play(last_minigame_success, health)
+		await audio_player.finished
+		audio_player.stream = transition_mfx
+		audio_player.play()
+		await get_tree().create_timer(transition_mfx.get_length() - 0.5).timeout
 		flavor.queue_free()
 
 	var scene: PackedScene
@@ -77,12 +87,17 @@ func load_next_minigame():
 	await transition.play_in()
 
 func _on_minigame_finished(success: bool):
+	audio_player.pitch_scale = Settings.get_audio_speed_scale(current_speed)
+	audio_player.pitch_scale = current_speed
 	last_minigame_success = success
 	if success:
+		audio_player.stream = pass_mfx
 		current_speed += speed_increment
 	else:
+		audio_player.stream = fail_mfx
 		health -= 1
 		print("Health : ", health)
+	audio_player.play()
 	if current_index >= 0:
 		recent_minigames.append(minigame_paths[current_index])
 	if recent_minigames.size() > recent_queue_size:

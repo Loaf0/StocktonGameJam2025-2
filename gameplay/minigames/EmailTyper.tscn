@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ciep6jw7noat7" path="res://gameplay/minigames/email_typer.gd" id="1_igwgv"]
 [ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="2_6wbtl"]
 [ext_resource type="Texture2D" uid="uid://c7omm5xumtc5k" path="res://assets/minigames/EmailTyper/keyboardgame.png" id="3_ja2k8"]
-[ext_resource type="FontFile" uid="uid://dpil64o22ebvd" path="res://assets/Fonts/ByteBounce.ttf" id="4_bel6g"]
+[ext_resource type="FontFile" uid="uid://dpil64o22ebvd" path="res://assets/fonts/ByteBounce.ttf" id="4_bel6g"]
 [ext_resource type="Texture2D" uid="uid://uedn6s30jp3" path="res://assets/minigames/EmailTyper/button.png" id="4_yamot"]
 [ext_resource type="Texture2D" uid="uid://c85r23cn6j8jq" path="res://assets/minigames/EmailTyper/Font.png" id="5_8j2ft"]
 
@@ -589,3 +589,5 @@ text = "READ KAGURA BACHI TEST EMAIL SENDING"
 libraries = {
 &"": SubResource("AnimationLibrary_ts7bf")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
