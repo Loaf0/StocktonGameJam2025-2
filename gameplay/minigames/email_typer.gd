@@ -14,12 +14,19 @@ extends Minigame
 @onready var timer := $MinigameTimer
 @onready var anim := $AnimationPlayer
 
+const CHAR_ATLAS_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const CHAR_WIDTH = 16.0
+const CHAR_HEIGHT = 16.0
+
 var target_text := ""
 var typed_text := ""
 var start_index := 0
 var current_index := 0
 var shuffled_keys: Array = []
 var all_letters := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+var highlight_active := false
+
+const KEY_SHADER = preload("res://assets/minigames/EmailTyper/EmailTyper.gdshader")
 
 func start():
 	num_letters_to_type = 5 + 2 * difficulty
@@ -30,9 +37,20 @@ func start():
 	start_index = max(target_text.length() - num_letters_to_type, 0)
 	typed_text = target_text.substr(0, start_index)
 	current_index = start_index
+	highlight_active = false
 	_update_label()
 	_setup_keyboard()
 	_setup_timer()
+
+func _process(_delta):
+	if not timer.running or highlight_active:
+		return
+	
+	var halfway_point = timer.duration / 2.0
+	
+	if timer.elapsed >= halfway_point:
+		highlight_active = true
+		_update_keyboard_glow()
 
 func _setup_keyboard():
 	var buttons = grid.get_children()
@@ -42,10 +60,25 @@ func _setup_keyboard():
 	
 	for i in range(buttons.size()):
 		var btn = buttons[i]
-		
 		var letter = shuffled_keys[i % shuffled_keys.size()]
-		btn.get_node("Control/Label").text = letter
+		
+		var btn_sprite = btn.get_node("Control/Sprite2D")
+		
+		if btn_sprite:
+			var char_index = CHAR_ATLAS_STRING.find(letter)
+			
+			if char_index != -1:
+				btn_sprite.region_enabled = true
+				var x_offset = float(char_index) * CHAR_WIDTH
+				btn_sprite.region_rect = Rect2(x_offset, 0, CHAR_WIDTH, CHAR_HEIGHT)
+			
+			var mat = ShaderMaterial.new()
+			mat.shader = KEY_SHADER
+			btn_sprite.material = mat
+			
 		btn.pressed.connect(_on_key_pressed.bind(letter))
+
+	_update_keyboard_glow()
 
 func _setup_timer():
 	var base_time := 15.0
@@ -60,8 +93,40 @@ func _setup_timer():
 	timer.start(base_time * time_mod)
 	timer.time_up.connect(_on_time_up)
 
+func _update_keyboard_glow():
+	var untyped_section = target_text.substr(current_index).to_upper()
+	var target_letters = {}
+	
+	for i in range(untyped_section.length()):
+		var curr_char = untyped_section[i]
+		if curr_char >= "A" and curr_char <= "Z":
+			target_letters[curr_char] = true
+
+	var highlight_color = Color.WHITE
+	var default_color = Color.BLACK
+	
+	for btn in grid.get_children():
+		var sprite = btn.get_node("Control/Sprite2D")
+		
+		if not sprite or not sprite.material is ShaderMaterial: continue
+		
+		var material = sprite.material as ShaderMaterial
+		
+		var region_x = sprite.region_rect.position.x
+		var char_index = int(round(region_x / CHAR_WIDTH))
+		
+		if char_index < 0 or char_index >= CHAR_ATLAS_STRING.length():
+			continue
+			
+		var letter = CHAR_ATLAS_STRING[char_index]
+		
+		var target_color = default_color
+		if highlight_active and letter in target_letters:
+			target_color = highlight_color
+		
+		material.set_shader_parameter("Color_Tint", target_color)
+
 func _on_key_pressed(letter: String) -> void:
-	print("pressed :" + letter)
 	if current_index >= target_text.length():
 		return
 
@@ -81,6 +146,9 @@ func _on_key_pressed(letter: String) -> void:
 
 	_update_label()
 	_skip_non_letters()
+	
+	if highlight_active:
+		_update_keyboard_glow()
 
 	if current_index >= target_text.length():
 		timer.stop()
@@ -108,4 +176,4 @@ func _play_finish_animation(success: bool):
 
 func _update_label():
 	var untyped = target_text.substr(current_index, target_text.length() - current_index)
-	label_email.bbcode_text = typed_text + "[color=gray]" + untyped + "[/color]_"
+	label_email.bbcode_text = typed_text + "[color=#6b6b6b]" + untyped + "[/color]_"

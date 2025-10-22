@@ -1,13 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://svgpak5i10mb"]
+[gd_scene load_steps=11 format=3 uid="uid://svgpak5i10mb"]
 
 [ext_resource type="Script" uid="uid://ciep6jw7noat7" path="res://gameplay/minigames/email_typer.gd" id="1_igwgv"]
 [ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="2_6wbtl"]
 [ext_resource type="Texture2D" uid="uid://c7omm5xumtc5k" path="res://assets/minigames/EmailTyper/keyboardgame.png" id="3_ja2k8"]
+[ext_resource type="FontFile" uid="uid://dpil64o22ebvd" path="res://assets/Fonts/ByteBounce.ttf" id="4_bel6g"]
 [ext_resource type="Texture2D" uid="uid://uedn6s30jp3" path="res://assets/minigames/EmailTyper/button.png" id="4_yamot"]
+[ext_resource type="Texture2D" uid="uid://c85r23cn6j8jq" path="res://assets/minigames/EmailTyper/Font.png" id="5_8j2ft"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ja2k8"]
-font_size = 10
-font_color = Color(0, 0, 0, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_8j2ft"]
+atlas = ExtResource("5_8j2ft")
+margin = Rect2(0, 0, 16, 16)
 
 [sub_resource type="Animation" id="Animation_2o2ba"]
 resource_name = "Fail"
@@ -58,19 +60,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button1/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button1/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button2" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -81,19 +80,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button2/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button2/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button3" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -104,19 +100,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button3/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button3/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button4" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -127,19 +120,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button4/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button4/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button5" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -150,19 +140,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button5/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button5/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button6" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -173,19 +160,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button6/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button6/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button7" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -196,19 +180,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button7/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button7/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button8" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -219,19 +200,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button8/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button8/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button9" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -242,19 +220,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button9/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button9/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button10" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -265,19 +240,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button10/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button10/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button11" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -288,19 +260,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button11/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button11/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button12" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -311,19 +280,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button12/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button12/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button13" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -334,19 +300,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button13/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button13/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button14" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -357,19 +320,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button14/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button14/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button15" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -380,19 +340,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button15/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button15/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button16" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -403,19 +360,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button16/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button16/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button17" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -426,19 +380,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button17/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button17/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button18" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -449,19 +400,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button18/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button18/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button19" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -472,19 +420,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button19/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button19/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button20" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -495,19 +440,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button20/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button20/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button21" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -518,19 +460,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button21/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button21/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button22" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -541,19 +480,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button22/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button22/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button23" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -564,19 +500,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button23/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button23/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button24" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -587,19 +520,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button24/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button24/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button25" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -610,19 +540,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button25/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button25/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Button26" type="TextureButton" parent="CanvasLayer/GridContainer"]
 layout_mode = 2
@@ -633,19 +560,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/GridContainer/Button26/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "A"
-label_settings = SubResource("LabelSettings_ja2k8")
-horizontal_alignment = 1
-vertical_alignment = 1
+mouse_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/GridContainer/Button26/Control"]
+position = Vector2(7.9999995, 8.000001)
+scale = Vector2(0.99999994, 0.9999997)
+texture = SubResource("AtlasTexture_8j2ft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
 
 [node name="Label" type="RichTextLabel" parent="CanvasLayer"]
 anchors_preset = -1
@@ -656,11 +580,7 @@ anchor_bottom = 0.58500004
 offset_right = -1.5258789e-05
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 12
-theme_override_font_sizes/bold_font_size = 12
-theme_override_font_sizes/bold_italics_font_size = 12
-theme_override_font_sizes/italics_font_size = 12
-theme_override_font_sizes/mono_font_size = 12
+theme_override_fonts/normal_font = ExtResource("4_bel6g")
 text = "READ KAGURA BACHI TEST EMAIL SENDING"
 
 [node name="MinigameTimer" parent="." instance=ExtResource("2_6wbtl")]

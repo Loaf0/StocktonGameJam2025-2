@@ -10,7 +10,7 @@ signal time_up
 @export var color_critical: Color = Color.RED
 
 var running: bool = false
-var elapsed: float = 0.0
+@export var elapsed: float = 0.0
 
 @onready var bar: ProgressBar = $Control/ProgressBar
 
@@ -34,6 +34,13 @@ func stop():
 func reset():
 	elapsed = 0.0
 	bar.value = 100
+
+func pause_timer():
+	running = false
+
+func resume_timer():
+	if elapsed < duration:
+		running = true
 
 func _process(delta: float):
 	if not running:

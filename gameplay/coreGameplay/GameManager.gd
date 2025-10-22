@@ -50,11 +50,13 @@ func load_next_minigame():
 		game_over()
 		return
 	await transition.play_out()
-	if current_index >= 0:
+	
+	if not first_forced:
 		var flavor = flavor_scene.instantiate()
 		add_child(flavor)
 		await flavor.play(last_minigame_success, health)
 		flavor.queue_free()
+
 	var scene: PackedScene
 	if first_forced and forced_first_minigame:
 		scene = forced_first_minigame

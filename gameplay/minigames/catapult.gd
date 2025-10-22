@@ -6,20 +6,21 @@ extends Minigame
 @onready var projectile := $Game/Projectile
 @onready var target := $Game/Target
 @onready var arc_line := $Game/Estimation
-@onready var timer := $Game/Timer
+@onready var timer := $MinigameTimer
 @onready var anim := $AnimationPlayer
 
 var gravity := Vector2(0, 80)
 var projectile_velocity := Vector2.ZERO
 var launched := false
-var target_hit := false
+var game_finished := false
 
 var power_range := Vector2(50, 120)
 var angle_range := Vector2(15, 75)
-var collision_radius := 10 
+var collision_radius := 10
 
 func start():
 	randomize()
+	game_finished = false
 	_reset_projectile()
 
 	var dist_min = 100 + difficulty * 5
@@ -36,8 +37,11 @@ func start():
 	angle_slider.value_changed.connect(_update_arc)
 	power_slider.value_changed.connect(_update_arc)
 	launch_button.pressed.connect(_on_launch_pressed)
+	timer.time_up.connect(_on_time_up)
 
 	_update_arc()
+	
+	timer.start()
 
 func _update_arc(_v = 0):
 	var angle_deg = lerp(angle_range.x, angle_range.y, angle_slider.value / angle_slider.max_value)
@@ -54,8 +58,10 @@ func _update_arc(_v = 0):
 	arc_line.points = points
 
 func _on_launch_pressed():
-	if launched:
+	if launched or game_finished:
 		return
+
+	timer.pause_timer()
 
 	launched = true
 	var angle_deg = lerp(angle_range.x, angle_range.y, angle_slider.value / angle_slider.max_value)
@@ -63,37 +69,47 @@ func _on_launch_pressed():
 	var angle_rad = deg_to_rad(angle_deg)
 	projectile_velocity = Vector2(cos(angle_rad), -sin(angle_rad)) * power
 
-	timer.start(5.0)
 	arc_line.visible = false
+	
+	power_slider.editable = false
+	angle_slider.editable = false
+	launch_button.disabled = true
 
 func _process(delta):
-	if launched:
+	if launched and not game_finished:
 		projectile.position += projectile_velocity * delta
 		projectile_velocity += gravity * delta
 
 		if projectile.position.y > 190:
 			_finish(false)
+		
+		# Check for hit condition
 		elif projectile.position.distance_to(target.position) < collision_radius:
 			_finish(true)
 
 func _finish(success: bool):
-	if target_hit or not launched:
+	if game_finished:
 		return
 
-	target_hit = success
+	game_finished = true
 	launched = false
 
 	emit_signal("minigame_finished", success)
-	timer.stop()
+	timer.pause_timer()
 	await _play_finish_animation(success)
 	_reset_projectile()
 
 func _reset_projectile():
-	projectile.position = Vector2(50, 150)
+	projectile.position = Vector2(25, 100)
 	projectile_velocity = Vector2.ZERO
 	launched = false
-	target_hit = false
+	
 	arc_line.visible = true
+	
+	power_slider.editable = true
+	angle_slider.editable = true
+	launch_button.disabled = false
+	
 	_update_arc()
 
 func _on_time_up():

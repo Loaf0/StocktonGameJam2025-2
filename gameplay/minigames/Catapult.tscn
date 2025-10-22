@@ -173,21 +173,21 @@ texture = ExtResource("3_unhu0")
 
 [node name="Game" type="Node2D" parent="."]
 
-[node name="CatapultBase" type="Node2D" parent="Game"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Game/CatapultBase"]
-position = Vector2(23.25, 105.75)
-scale = Vector2(0.47500002, 0.47500002)
-texture = ExtResource("4_38y13")
-
 [node name="Projectile" type="Node2D" parent="Game"]
+position = Vector2(-10, 95)
 
 [node name="Sprite2D" type="Sprite2D" parent="Game/Projectile"]
-position = Vector2(65.3925, 96.6075)
 scale = Vector2(0.80166686, 0.80166686)
 texture = ExtResource("4_38y13")
 region_enabled = true
 region_rect = Rect2(90, 36, 9, 9)
+
+[node name="CatapultBase" type="Node2D" parent="Game"]
+position = Vector2(19, 98)
+
+[node name="Sprite2D" type="Sprite2D" parent="Game/CatapultBase"]
+scale = Vector2(0.47500002, 0.47500002)
+texture = ExtResource("4_38y13")
 
 [node name="Target" type="Node2D" parent="Game"]
 
@@ -198,7 +198,3 @@ region_enabled = true
 region_rect = Rect2(27.481224, 65.333595, 29.777779, 26.962967)
 
 [node name="Estimation" type="Line2D" parent="Game"]
-
-[node name="Timer" type="Timer" parent="Game"]
-
-[connection signal="pressed" from="CanvasLayer/Control/Launch" to="." method="_on_launch_pressed"]
