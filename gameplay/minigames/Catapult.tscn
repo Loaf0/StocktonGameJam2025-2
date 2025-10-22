@@ -200,3 +200,5 @@ region_rect = Rect2(27.481224, 65.333595, 29.777779, 26.962967)
 [node name="Estimation" type="Line2D" parent="Game"]
 
 [node name="Timer" type="Timer" parent="Game"]
+
+[connection signal="pressed" from="CanvasLayer/Control/Launch" to="." method="_on_launch_pressed"]
