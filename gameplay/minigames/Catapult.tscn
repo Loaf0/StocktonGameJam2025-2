@@ -190,11 +190,13 @@ scale = Vector2(0.47500002, 0.47500002)
 texture = ExtResource("4_38y13")
 
 [node name="Target" type="Node2D" parent="Game"]
+position = Vector2(-34, 97)
 
 [node name="Sprite2D" type="Sprite2D" parent="Game/Target"]
-position = Vector2(157, 130)
 texture = ExtResource("4_38y13")
 region_enabled = true
 region_rect = Rect2(27.481224, 65.333595, 29.777779, 26.962967)
 
 [node name="Estimation" type="Line2D" parent="Game"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

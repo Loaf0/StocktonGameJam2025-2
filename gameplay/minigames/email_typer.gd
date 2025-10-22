@@ -195,6 +195,7 @@ func _fade_in_music():
 	music_player.stream = music
 	music_player.volume_db = -80.0
 	music_player.play()
+	music_player.pitch_scale = Settings.get_audio_speed_scale(speed)
 	
 	var tween = create_tween()
 	tween.tween_property(music_player, "volume_db", Settings.MUSIC_VOLUME_DB, FADE_TIME)
@@ -204,16 +205,3 @@ func _fade_out_music():
 	tween.tween_property(music_player, "volume_db", -80.0, FADE_TIME)
 	await tween.finished
 	music_player.stop()
-
-func _play_one_shot_sfx(sfx: AudioStream, pitch_range : float = 0.1):
-	var player = AudioStreamPlayer.new()
-	add_child(player)
-	player.stream = sfx
-	
-	var min_pitch = 1.0 - pitch_range
-	var max_pitch = 1.0 + pitch_range
-	
-	player.pitch_scale = randf_range(min_pitch, max_pitch)
-	
-	player.finished.connect(player.queue_free)
-	player.play()

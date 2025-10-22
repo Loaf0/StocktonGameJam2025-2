@@ -1,0 +1,258 @@
+[gd_scene load_steps=12 format=3 uid="uid://bt20qwycijyq8"]
+
+[ext_resource type="Script" uid="uid://bng6wtr6pdw04" path="res://gameplay/minigames/oven.gd" id="1_mhtwf"]
+[ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="2_yvqd3"]
+[ext_resource type="Texture2D" uid="uid://cgr53jbqgtl0u" path="res://assets/minigames/Oven/Cheeseburger.jpg" id="3_2iomx"]
+[ext_resource type="Texture2D" uid="uid://b314uoi3ubj4t" path="res://assets/minigames/Oven/Indicator.png" id="3_usjo3"]
+[ext_resource type="Texture2D" uid="uid://cdtcnh0kv6wu0" path="res://assets/minigames/Oven/Background.png" id="4_2pff3"]
+[ext_resource type="Texture2D" uid="uid://71ym3ncbh8iw" path="res://assets/minigames/Oven/Lever.png" id="4_un7j3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_usjo3"]
+size = Vector2(21, 24)
+
+[sub_resource type="Animation" id="Animation_usjo3"]
+resource_name = "Fail"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cheeseburger:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cheeseburger:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.1415927]
+}
+
+[sub_resource type="Animation" id="Animation_2pff3"]
+resource_name = "Pass"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cheeseburger:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_16em2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cheeseburger:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cheeseburger:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_un7j3"]
+_data = {
+&"Fail": SubResource("Animation_usjo3"),
+&"Pass": SubResource("Animation_2pff3"),
+&"RESET": SubResource("Animation_16em2")
+}
+
+[node name="Oven" type="Node2D"]
+script = ExtResource("1_mhtwf")
+
+[node name="MinigameTimer" parent="." instance=ExtResource("2_yvqd3")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ButtonContainer" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 35.0
+offset_top = 97.0
+offset_right = 165.0
+offset_bottom = 115.0
+size_flags_vertical = 3
+
+[node name="Marker" type="TextureRect" parent="CanvasLayer/ButtonContainer"]
+layout_mode = 1
+anchors_preset = -1
+offset_top = -9.0
+offset_right = 9.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_usjo3")
+stretch_mode = 2
+
+[node name="RayCast2D" type="RayCast2D" parent="CanvasLayer/ButtonContainer/Marker"]
+position = Vector2(4.5, 4)
+target_position = Vector2(0, 19)
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="CanvasLayer/ButtonContainer"]
+position = Vector2(13, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/ButtonContainer/AnimatableBody2D"]
+position = Vector2(10.5, 12)
+shape = SubResource("RectangleShape2D_usjo3")
+
+[node name="Slider" type="TextureRect" parent="CanvasLayer/ButtonContainer/AnimatableBody2D"]
+anchors_preset = -1
+offset_right = 21.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_un7j3")
+stretch_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/ButtonContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.010485711
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonContainer2" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 35.0
+offset_top = 126.0
+offset_right = 165.0
+offset_bottom = 144.0
+size_flags_vertical = 3
+
+[node name="Marker" type="TextureRect" parent="CanvasLayer/ButtonContainer2"]
+layout_mode = 1
+anchors_preset = -1
+offset_top = -9.0
+offset_right = 9.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_usjo3")
+stretch_mode = 2
+
+[node name="RayCast2D" type="RayCast2D" parent="CanvasLayer/ButtonContainer2/Marker"]
+position = Vector2(4.5, 4)
+target_position = Vector2(0, 19)
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="CanvasLayer/ButtonContainer2"]
+position = Vector2(13, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/ButtonContainer2/AnimatableBody2D"]
+position = Vector2(10.5, 12)
+shape = SubResource("RectangleShape2D_usjo3")
+
+[node name="Slider" type="TextureRect" parent="CanvasLayer/ButtonContainer2/AnimatableBody2D"]
+anchors_preset = -1
+offset_right = 21.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_un7j3")
+stretch_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/ButtonContainer2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.010485711
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonContainer3" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 35.0
+offset_top = 155.0
+offset_right = 165.0
+offset_bottom = 173.0
+size_flags_vertical = 3
+
+[node name="Marker" type="TextureRect" parent="CanvasLayer/ButtonContainer3"]
+layout_mode = 1
+anchors_preset = -1
+offset_top = -9.0
+offset_right = 9.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_usjo3")
+stretch_mode = 2
+
+[node name="RayCast2D" type="RayCast2D" parent="CanvasLayer/ButtonContainer3/Marker"]
+position = Vector2(4.5, 4)
+target_position = Vector2(0, 19)
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="CanvasLayer/ButtonContainer3"]
+position = Vector2(13, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/ButtonContainer3/AnimatableBody2D"]
+position = Vector2(10.5, 12)
+shape = SubResource("RectangleShape2D_usjo3")
+
+[node name="Slider" type="TextureRect" parent="CanvasLayer/ButtonContainer3/AnimatableBody2D"]
+anchors_preset = -1
+offset_right = 21.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_un7j3")
+stretch_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/ButtonContainer3"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.010485711
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_un7j3")
+}
+
+[node name="Cheeseburger" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(592, 353)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_2iomx")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(100, 100)
+texture = ExtResource("4_2pff3")

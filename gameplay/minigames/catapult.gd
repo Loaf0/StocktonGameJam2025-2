@@ -9,14 +9,21 @@ extends Minigame
 @onready var timer := $MinigameTimer
 @onready var anim := $AnimationPlayer
 
-var gravity := Vector2(0, 80)
+@onready var music_player = $AudioStreamPlayer2D
+@onready var music = preload("res://assets/msfx/minigameMusic/gun head guy thing_2.wav")
+
+@onready var fire_sfx = preload("res://assets/minigames/Catapult/cornguylaunch.mp3")
+
+var gravity := Vector2(0, 200)
 var projectile_velocity := Vector2.ZERO
 var launched := false
 var game_finished := false
 
 var power_range := Vector2(50, 120)
 var angle_range := Vector2(15, 75)
-var collision_radius := 10
+var collision_radius := 20
+
+const FADE_TIME = 1.0
 
 func start():
 	randomize()
@@ -38,7 +45,7 @@ func start():
 	power_slider.value_changed.connect(_update_arc)
 	launch_button.pressed.connect(_on_launch_pressed)
 	timer.time_up.connect(_on_time_up)
-
+	_fade_in_music()
 	_update_arc()
 	
 	timer.start()
@@ -58,6 +65,7 @@ func _update_arc(_v = 0):
 	arc_line.points = points
 
 func _on_launch_pressed():
+	_play_one_shot_sfx(fire_sfx)
 	if launched or game_finished:
 		return
 
@@ -83,7 +91,6 @@ func _process(delta):
 		if projectile.position.y > 190:
 			_finish(false)
 		
-		# Check for hit condition
 		elif projectile.position.distance_to(target.position) < collision_radius:
 			_finish(true)
 
@@ -96,6 +103,7 @@ func _finish(success: bool):
 
 	emit_signal("minigame_finished", success)
 	timer.pause_timer()
+	_fade_in_music()
 	await _play_finish_animation(success)
 	_reset_projectile()
 
@@ -121,3 +129,17 @@ func _play_finish_animation(success: bool):
 	else:
 		anim.play("Fail")
 	return await anim.animation_finished
+
+func _fade_in_music():
+	music_player.stream = music
+	music_player.volume_db = -80.0
+	music_player.play()
+	
+	var tween = create_tween()
+	tween.tween_property(music_player, "volume_db", Settings.MUSIC_VOLUME_DB, FADE_TIME)
+	
+func _fade_out_music():
+	var tween = create_tween()
+	tween.tween_property(music_player, "volume_db", -80.0, FADE_TIME)
+	await tween.finished
+	music_player.stop()

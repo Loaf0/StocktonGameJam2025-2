@@ -11,3 +11,16 @@ func start():
 
 func finish(success: bool):
 	emit_signal("minigame_finished", success)
+
+func _play_one_shot_sfx(sfx: AudioStream, pitch_range : float = 0.1):
+	var player = AudioStreamPlayer.new()
+	add_child(player)
+	player.stream = sfx
+	
+	var min_pitch = 1.0 - pitch_range
+	var max_pitch = 1.0 + pitch_range
+	
+	player.pitch_scale = randf_range(min_pitch, max_pitch)
+	
+	player.finished.connect(player.queue_free)
+	player.play()
