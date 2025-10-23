@@ -14,7 +14,7 @@ func play(sucess : bool, health : int):
 	label.text = "Pass" if sucess else "Fail"
 	_update_health(health)
 	anim.play(flavor_type)
-	return await anim.animation_finished
+	return anim.animation_finished
 
 func _update_health(health: int) -> void:
 	for i in health_display.get_children():

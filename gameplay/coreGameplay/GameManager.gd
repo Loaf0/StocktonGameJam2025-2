@@ -24,6 +24,7 @@ var current_difficulty := base_difficulty
 var transition: Transition = null
 var last_minigame_success: bool = true
 var first_forced := true
+var loading_next := false
 
 func _ready():
 	minigame_paths = _get_all_minigames(minigames_dir)
@@ -49,18 +50,29 @@ func _get_all_minigames(path: String) -> Array:
 	return result
 
 func load_next_minigame():
+	if loading_next:
+		print("⚠️ load_next_minigame called while already loading; ignoring.")
+		return
+	loading_next = true
+
 	if current_game:
+		if current_game.is_connected("minigame_finished", Callable(self, "_on_minigame_finished")):
+			current_game.disconnect("minigame_finished", Callable(self, "_on_minigame_finished"))
 		current_game.queue_free()
+		current_game = null
+		await get_tree().process_frame
+
 	if health <= 0:
 		game_over()
+		loading_next = false
 		return
+
 	await transition.play_out()
-	
+
 	if not first_forced:
 		var flavor = flavor_scene.instantiate()
 		add_child(flavor)
-		#await flavor.play(last_minigame_success, health)
-		flavor.play(last_minigame_success, health)
+		await flavor.play(last_minigame_success, health)
 		await audio_player.finished
 		audio_player.stream = transition_mfx
 		audio_player.play()
@@ -76,33 +88,47 @@ func load_next_minigame():
 		scene = load(path)
 	if not scene:
 		push_error("Failed to load minigame")
+		loading_next = false
 		return
+
 	current_game = scene.instantiate()
 	add_child(current_game)
-	current_game.minigame_finished.connect(_on_minigame_finished)
+
+	if not current_game.is_connected("minigame_finished", Callable(self, "_on_minigame_finished")):
+		current_game.minigame_finished.connect(_on_minigame_finished)
+
 	current_game.speed = current_speed
 	current_game.difficulty = current_difficulty
 	current_game.start()
-	print("Starting minigame: ", scene.resource_path)
+
+	print("minigame:", scene.resource_path)
 	await transition.play_in()
 
+	loading_next = false
+
 func _on_minigame_finished(success: bool):
-	audio_player.pitch_scale = Settings.get_audio_speed_scale(current_speed)
+	if loading_next:
+		return
+
 	audio_player.pitch_scale = current_speed
 	last_minigame_success = success
+
 	if success:
 		audio_player.stream = pass_mfx
 		current_speed += speed_increment
 	else:
 		audio_player.stream = fail_mfx
 		health -= 1
-		print("Health : ", health)
+		print("Health:", health)
+
 	audio_player.play()
+
 	if current_index >= 0:
 		recent_minigames.append(minigame_paths[current_index])
 	if recent_minigames.size() > recent_queue_size:
 		recent_minigames.pop_front()
-	load_next_minigame()
+
+	await load_next_minigame()
 
 func _choose_next_minigame() -> String:
 	var available = minigame_paths.filter(func(path):
