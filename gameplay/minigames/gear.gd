@@ -5,6 +5,9 @@ signal gear_rotated(gear_name: String, value: String)
 @export var gear_name: String = "GearA"
 @export var positions: Array[String] = ["1", "2", "3", "4", "5"]
 @export var rotation_step_degrees: float = 360.0 / 5.0
+@export var offset = 0
+
+@onready var sprite = $Image
 
 var current_index: int = 0
 
@@ -28,4 +31,4 @@ func _on_clicked():
 	emit_signal("gear_rotated", gear_name, positions[current_index])
 
 func _update_rotation():
-	rotation_degrees = current_index * rotation_step_degrees
+	sprite.frame = current_index + offset

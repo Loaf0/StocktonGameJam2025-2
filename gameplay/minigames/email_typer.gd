@@ -137,14 +137,6 @@ func _update_keyboard_glow():
 func _on_key_pressed(letter: String) -> void:
 	if current_index >= target_text.length():
 		return
-
-	_skip_non_letters()
-	if current_index >= target_text.length():
-		timer.stop()
-		_fade_out_music()
-		await _play_finish_animation(true)
-		emit_signal("minigame_finished", true)
-		return
 	
 	_play_one_shot_sfx(key_press_sfx, 0.02)
 	

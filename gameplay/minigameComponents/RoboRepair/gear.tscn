@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://dsdywh8rg463k"]
 
 [ext_resource type="Script" uid="uid://bs8kgdbsesa4k" path="res://gameplay/minigames/gear.gd" id="1_dgvil"]
-[ext_resource type="Texture2D" uid="uid://sf684k0811hh" path="res://assets/minigames/RoboRepair/pngtree-gear-wheel-png-free-download-png-image_14531772.png" id="2_wsof3"]
+[ext_resource type="Texture2D" uid="uid://dj8twn2tqn0ff" path="res://assets/minigames/RoboRepair/Gear.png" id="2_dgvil"]
 
 [node name="Gear" type="Node2D"]
 script = ExtResource("1_dgvil")
 
 [node name="Image" type="Sprite2D" parent="."]
-scale = Vector2(0.014799997, 0.015399994)
-texture = ExtResource("2_wsof3")
+texture = ExtResource("2_dgvil")
+vframes = 8

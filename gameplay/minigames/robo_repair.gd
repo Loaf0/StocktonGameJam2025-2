@@ -6,13 +6,14 @@ extends Minigame
 @onready var gears := [$CanvasLayer/Container/Gear, $CanvasLayer/Container/Gear2]
 @onready var sliders := [$CanvasLayer/Container/HSlider, $CanvasLayer/Container/HSlider2]
 @onready var toggles := [
-	$CanvasLayer/Container/Buttons/CheckButton,
-	$CanvasLayer/Container/Buttons/CheckButton2,
-	$CanvasLayer/Container/Buttons/CheckButton3
+	$CanvasLayer/Container/Control/CheckButton,
+	$CanvasLayer/Container/Control/CheckButton2,
+	$CanvasLayer/Container/Control/CheckButton3
 ]
 @onready var submit := $CanvasLayer/SubmitButton
 
 var target_config := {}
+var finished := false
 
 var difficulty_settings = {
 	1: {"time_limit": 20.0},
@@ -20,22 +21,47 @@ var difficulty_settings = {
 	3: {"time_limit": 10.0}
 }
 
+# Compass direction mapping for gear indices
+const COMPASS_DIRECTIONS = [
+	"E", "SE", "S", "SW", "W", "NW", "N", "NE"
+]
+
 func start():
 	randomize()
 	var settings = difficulty_settings.get(difficulty, difficulty_settings[1])
-	timer.start(settings["time_limit"])
+
+	# Disconnect signals first to avoid stacking from restarts
+	if timer.is_connected("time_up", _on_time_up):
+		timer.disconnect("time_up", _on_time_up)
 	timer.time_up.connect(_on_time_up)
+
+	for gear in gears:
+		if gear and gear.has_signal("gear_rotated"):
+			if gear.is_connected("gear_rotated", _on_gear_changed):
+				gear.disconnect("gear_rotated", _on_gear_changed)
+			gear.gear_rotated.connect(_on_gear_changed)
+
+	for s in sliders:
+		s.min_value = 0
+		s.max_value = 6
+		if s.is_connected("value_changed", _on_slider_changed):
+			s.disconnect("value_changed", _on_slider_changed)
+		s.value_changed.connect(_on_slider_changed)
+
+	for t in toggles:
+		if t.is_connected("toggled", _on_toggle_changed):
+			t.disconnect("toggled", _on_toggle_changed)
+		t.toggled.connect(_on_toggle_changed)
+
+	if submit.is_connected("pressed", _on_submit_pressed):
+		submit.disconnect("pressed", _on_submit_pressed)
+	submit.pressed.connect(_on_submit_pressed)
+
+	timer.start(settings["time_limit"])
 	_randomize_start_state()
 	_generate_target_config()
 	_display_instructions()
-	for gear in gears:
-		if gear and gear.has_signal("gear_rotated"):
-			gear.gear_rotated.connect(_on_gear_changed)
-	for s in sliders:
-		s.value_changed.connect(_on_slider_changed)
-	for t in toggles:
-		t.toggled.connect(_on_toggle_changed)
-	submit.pressed.connect(_on_submit_pressed)
+
 
 func _randomize_start_state():
 	for gear in gears:
@@ -52,6 +78,7 @@ func _randomize_start_state():
 	for t in toggles:
 		t.button_pressed = bool(randi() % 2)
 
+
 func _generate_target_config():
 	target_config.clear()
 	var possible_components := [
@@ -65,23 +92,26 @@ func _generate_target_config():
 	]
 	var num_instructions := 2 + difficulty
 	possible_components.shuffle()
+
 	for i in range(num_instructions):
 		var c = possible_components[i]
 		match c.type:
 			"gear":
-				target_config[c.id] = randi() % gears[c.index].positions.size()
+				target_config[c.id] = randi() % COMPASS_DIRECTIONS.size()
 			"slider":
-				target_config[c.id] = randi_range(1, 5)
+				target_config[c.id] = randf_range(0, 6)
 			"toggle":
 				target_config[c.id] = bool(randi() % 2)
 
+
 func _display_instructions():
-	var text := "[b]Repair Instructions:[/b]\n"
+	var text := ""
 	for key in target_config.keys():
 		var value = target_config[key]
 		match key:
 			"A", "B":
-				text += "- Set gear %s to position %s\n" % [key, str(int(value) + 1)]
+				var direction = COMPASS_DIRECTIONS[value % COMPASS_DIRECTIONS.size()]
+				text += "- Rotate gear %s to face %s\n" % [key, direction]
 			"slider1", "slider2":
 				text += "- Adjust %s to %.1f\n" % [key, value]
 			"toggle1", "toggle2", "toggle3":
@@ -92,21 +122,17 @@ func _display_instructions():
 func _on_gear_changed(gear_name: String, pos: String):
 	print("Gear %s set to %s" % [gear_name, pos])
 
-func _on_slider_changed(_value):
-	pass
-
-func _on_toggle_changed(_value):
-	pass
+func _on_slider_changed(_value): pass
+func _on_toggle_changed(_value): pass
 
 func _on_submit_pressed():
-	if _check_success():
-		timer.stop()
-		await _play_finish_animation(true)
-		emit_signal("minigame_finished", true)
-	else:
-		timer.stop()
-		await _play_finish_animation(false)
-		emit_signal("minigame_finished", false)
+	if finished: return
+	finished = true
+
+	timer.stop()
+	var success = _check_success()
+	await _play_finish_animation(success)
+	emit_signal("minigame_finished", success)
 
 func _check_success() -> bool:
 	for key in target_config.keys():
@@ -135,6 +161,9 @@ func _check_success() -> bool:
 	return true
 
 func _on_time_up():
+	if finished: return
+	finished = true
+
 	await _play_finish_animation(false)
 	emit_signal("minigame_finished", false)
 
