@@ -54,7 +54,7 @@ func start():
 		perfect_ranges.append(Vector2(start_loc, start_loc + size))
 		bounce_speed[i] = speed * settings["speed"] + randf_range(-0.2, 0.2) 
 	
-	music_player.pitch_scale = speed 
+	#music_player.pitch_scale = speed 
 	_fade_in_music()
 	
 	await _setup_targets()

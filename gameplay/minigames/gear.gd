@@ -18,7 +18,7 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("Click") and _is_hovering():
-		print(gear_name + " was clicked, position " + positions[current_index])
+		#print(gear_name + " was clicked, position " + positions[current_index])
 		_on_clicked()
 
 func _is_hovering() -> bool:

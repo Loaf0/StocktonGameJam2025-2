@@ -5,6 +5,9 @@ extends Node
 @onready var pass_mfx = preload("res://assets/msfx/transitionTheme/pass thing.wav")
 @onready var fail_mfx = preload("res://assets/msfx/transitionTheme/fail thing.wav")
 
+@export var game_over_scene: PackedScene = preload("res://gameplay/menus/GameOverScreen.tscn")
+var game_over_screen: CanvasLayer
+
 @export_dir var minigames_dir: String = "res://gameplay/minigames/"
 @export var transition_scene: PackedScene = preload("res://gameplay/transitions/JailTransition.tscn")
 @export var flavor_scene: PackedScene = preload("res://gameplay/animations/TestAnimation.tscn")
@@ -24,6 +27,8 @@ var current_difficulty := base_difficulty
 var transition: Transition = null
 var last_minigame_success: bool = true
 var first_forced := true
+
+var run_score: int = 0
 
 func _ready():
 	minigame_paths = _get_all_minigames(minigames_dir)
@@ -90,9 +95,9 @@ func load_next_minigame():
 
 func _on_minigame_finished(success: bool):
 	audio_player.pitch_scale = Settings.get_audio_speed_scale(current_speed)
-	audio_player.pitch_scale = current_speed
 	last_minigame_success = success
 	if success:
+		run_score += 1
 		audio_player.stream = pass_mfx
 		current_speed += speed_increment
 	else:
@@ -127,3 +132,39 @@ func _choose_next_minigame() -> String:
 
 func game_over():
 	await transition.play_out()
+
+	var difficulty_name := ""
+	match current_difficulty:
+		1:
+			difficulty_name = "Easy"
+			if run_score > Settings.EASY_SCORE:
+				Settings.EASY_SCORE = run_score
+		2:
+			difficulty_name = "Medium"
+			if run_score > Settings.MEDI_SCORE:
+				Settings.MEDI_SCORE = run_score
+		3:
+			difficulty_name = "Hard"
+			if run_score > Settings.HARD_SCORE:
+				Settings.HARD_SCORE = run_score
+
+	var save_manager = get_node_or_null("/root/Save")
+	if save_manager:
+		save_manager.save_score()
+
+	game_over_screen = game_over_scene.instantiate()
+	add_child(game_over_screen)
+	game_over_screen.show_game_over(run_score, difficulty_name)
+
+	game_over_screen.restart_requested.connect(_on_restart_requested)
+	game_over_screen.main_menu_requested.connect(_on_main_menu_requested)
+
+func _on_restart_requested():
+	game_over_screen.queue_free()
+	health = 3
+	current_speed = base_speed
+	current_difficulty = base_difficulty
+	load_next_minigame()
+
+func _on_main_menu_requested():
+	get_tree().change_scene_to_file("res://main_menu/MainMenu.tscn")

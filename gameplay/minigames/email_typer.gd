@@ -142,27 +142,36 @@ func _on_key_pressed(letter: String) -> void:
 		return
 	if current_index >= target_text.length():
 		return
-	
+
 	_play_one_shot_sfx(key_press_sfx, 0.02)
-	
-	var expected := target_text[current_index].to_upper()
-	if letter == expected:
+
+	while current_index < target_text.length():
+		var c := target_text[current_index].to_upper()
+		if c >= "A" and c <= "Z":
+			break
 		current_index += 1
 		typed_text = target_text.substr(0, current_index)
-	else:
-		typed_text += ""
+
+	if current_index < target_text.length():
+		var expected := target_text[current_index].to_upper()
+		if letter == expected:
+			current_index += 1
+			typed_text = target_text.substr(0, current_index)
+			while current_index < target_text.length() and not (target_text[current_index].to_upper() >= "A" and target_text[current_index].to_upper() <= "Z"):
+				current_index += 1
+				typed_text = target_text.substr(0, current_index)
 
 	_update_label()
-	_skip_non_letters()
-	
+
 	if highlight_active:
 		_update_keyboard_glow()
 
 	if current_index >= target_text.length():
 		timer.stop()
-		_fade_out_music()
+		await _fade_out_music()
 		await _play_finish_animation(true)
 		emit_signal("minigame_finished", true)
+
 
 func _skip_non_letters():
 	while current_index < target_text.length():

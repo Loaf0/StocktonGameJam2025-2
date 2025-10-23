@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1nrnx4vshkyp"]
+
+[ext_resource type="Script" uid="uid://bf0x61gn2535o" path="res://gameplay/menus/game_over_screen.gd" id="1_ijgdh"]
+[ext_resource type="FontFile" uid="uid://dpil64o22ebvd" path="res://assets/fonts/ByteBounce.ttf" id="2_8lamq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ta5yj"]
+font = ExtResource("2_8lamq")
+
+[node name="GameOverScreen" type="CanvasLayer"]
+layer = 24
+script = ExtResource("1_ijgdh")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23137255, 0.12156863, 0.45882353, 1)
+
+[node name="TitleLabel" type="Label" parent="."]
+offset_right = 200.0
+offset_bottom = 43.0
+label_settings = SubResource("LabelSettings_ta5yj")
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_top = 43.0
+offset_right = 200.0
+offset_bottom = 86.0
+label_settings = SubResource("LabelSettings_ta5yj")
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="."]
+offset_left = 40.0
+offset_top = 125.0
+offset_right = 98.0
+offset_bottom = 149.0
+theme_override_font_sizes/font_size = 8
+text = "restart"
+
+[node name="MainMenuButton" type="Button" parent="."]
+offset_left = 102.0
+offset_top = 125.0
+offset_right = 160.0
+offset_bottom = 149.0
+theme_override_font_sizes/font_size = 8
+text = "mainmenu"

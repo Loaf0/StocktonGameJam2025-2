@@ -125,8 +125,9 @@ func _display_instructions():
 	label.bbcode_enabled = true
 	label.bbcode_text = text
 
-func _on_gear_changed(gear_name: String, pos: String):
-	print("Gear %s set to %s" % [gear_name, pos])
+func _on_gear_changed(_gear_name: String, _pos: String):
+	#print("Gear %s set to %s" % [gear_name, pos])
+	pass
 
 func _on_slider_changed(_value): 
 	_play_one_shot_sfx(switch_sfx, 0.03)

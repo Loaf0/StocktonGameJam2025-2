@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="2_yseuw"]
 [ext_resource type="Texture2D" uid="uid://dd2yt8h3rrnk0" path="res://assets/minigames/RoboRepair/Background.png" id="3_4qcj3"]
 [ext_resource type="PackedScene" uid="uid://dsdywh8rg463k" path="res://gameplay/minigameComponents/RoboRepair/gear.tscn" id="3_j7hqi"]
-[ext_resource type="FontFile" uid="uid://dpil64o22ebvd" path="res://assets/Fonts/ByteBounce.ttf" id="4_1crie"]
+[ext_resource type="FontFile" uid="uid://dpil64o22ebvd" path="res://assets/fonts/ByteBounce.ttf" id="4_1crie"]
 [ext_resource type="Texture2D" uid="uid://ddhejkd3jm0le" path="res://assets/minigames/RoboRepair/Knob.png" id="5_4qcj3"]
 [ext_resource type="Texture2D" uid="uid://c6aign27qrirn" path="res://assets/minigames/RoboRepair/Switch.png" id="7_ax0x8"]
 
