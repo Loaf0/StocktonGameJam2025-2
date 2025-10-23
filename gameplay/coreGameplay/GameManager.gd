@@ -37,7 +37,7 @@ func _ready():
 	add_child(transition)
 	load_next_minigame()
 	current_speed = base_speed
-	current_difficulty = base_difficulty
+	current_difficulty = Settings.CURRENT_DIFF
 
 func _get_all_minigames(path: String) -> Array:
 	var result: Array = []
@@ -167,4 +167,4 @@ func _on_restart_requested():
 	load_next_minigame()
 
 func _on_main_menu_requested():
-	get_tree().change_scene_to_file("res://main_menu/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://gameplay/menus/MainMenu.tscn")

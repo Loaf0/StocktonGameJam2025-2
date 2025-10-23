@@ -1,0 +1,250 @@
+[gd_scene load_steps=15 format=3 uid="uid://bdk638jp2snpj"]
+
+[ext_resource type="Script" uid="uid://c3b5l78k66alr" path="res://gameplay/menus/main_menu.gd" id="1_jxwy0"]
+[ext_resource type="Texture2D" uid="uid://b8ccjb1iha4qf" path="res://assets/Main Menu/main_Menu.png" id="2_jxwy0"]
+[ext_resource type="Texture2D" uid="uid://ddp3vnao7g3d1" path="res://assets/Main Menu/Blanks.png" id="3_j05ce"]
+[ext_resource type="FontFile" uid="uid://dpil64o22ebvd" path="res://assets/fonts/ByteBounce.ttf" id="4_kpv4c"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j05ce"]
+load_path = "res://.godot/imported/main_Menu.png-0ee0a0c45001bfebbd2aa02a84672b06.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpv4c"]
+atlas = SubResource("CompressedTexture2D_j05ce")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jxwy0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f3yl0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j05ce"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kpv4c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lqavl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j05ce"]
+atlas = ExtResource("2_jxwy0")
+region = Rect2(0, 400, 200, 200)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lqavl"]
+line_spacing = 0.0
+font = ExtResource("4_kpv4c")
+font_color = Color(0.0627451, 0.07058824, 0.10980392, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqavl"]
+atlas = ExtResource("2_jxwy0")
+region = Rect2(0, 200, 200, 200)
+
+[node name="MainMenu" type="CanvasLayer"]
+layer = 30
+script = ExtResource("1_jxwy0")
+
+[node name="MainMenu" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_kpv4c")
+
+[node name="Play" type="Button" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = 7.0
+offset_right = 27.0
+offset_bottom = 27.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jxwy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_f3yl0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j05ce")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kpv4c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lqavl")
+
+[node name="Settings" type="Button" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.0
+offset_top = 30.0
+offset_right = 51.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jxwy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_f3yl0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j05ce")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kpv4c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lqavl")
+
+[node name="Quit" type="Button" parent="MainMenu"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 176.0
+offset_right = 127.0
+offset_bottom = 196.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jxwy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_f3yl0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j05ce")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kpv4c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lqavl")
+
+[node name="LevelSelect" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_j05ce")
+
+[node name="Easy" type="Button" parent="LevelSelect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -36.0
+offset_right = -26.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jxwy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_f3yl0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j05ce")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kpv4c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lqavl")
+
+[node name="Medium" type="Button" parent="LevelSelect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -7.0
+offset_right = -14.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jxwy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_f3yl0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j05ce")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kpv4c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lqavl")
+
+[node name="Hard" type="Button" parent="LevelSelect"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 122.0
+offset_right = 74.0
+offset_bottom = 142.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jxwy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_f3yl0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j05ce")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kpv4c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lqavl")
+
+[node name="Quit" type="Button" parent="LevelSelect"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 176.0
+offset_right = 127.0
+offset_bottom = 196.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jxwy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_f3yl0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j05ce")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kpv4c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lqavl")
+
+[node name="EasyLabel" type="Sprite2D" parent="LevelSelect"]
+position = Vector2(165, 74)
+texture = ExtResource("3_j05ce")
+
+[node name="HighscoreEasyLabel" type="Label" parent="LevelSelect"]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 66.0
+offset_right = 189.0
+offset_bottom = 82.0
+text = "000"
+label_settings = SubResource("LabelSettings_lqavl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EasyLabel2" type="Sprite2D" parent="LevelSelect"]
+position = Vector2(165, 103)
+texture = ExtResource("3_j05ce")
+
+[node name="HighscoreMediLabel" type="Label" parent="LevelSelect"]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 95.0
+offset_right = 189.0
+offset_bottom = 111.0
+text = "000"
+label_settings = SubResource("LabelSettings_lqavl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EasyLabel3" type="Sprite2D" parent="LevelSelect"]
+position = Vector2(165, 132)
+texture = ExtResource("3_j05ce")
+
+[node name="HighscoreHardLabel" type="Label" parent="LevelSelect"]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 124.0
+offset_right = 189.0
+offset_bottom = 140.0
+text = "000"
+label_settings = SubResource("LabelSettings_lqavl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_lqavl")
+
+[node name="HSlider" type="HSlider" parent="Settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.25
+offset_top = -9.0
+offset_right = 70.25
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+rounded = true
+
+[node name="Back" type="Button" parent="Settings"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 176.0
+offset_right = 127.0
+offset_bottom = 196.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jxwy0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_f3yl0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_j05ce")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_kpv4c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lqavl")
