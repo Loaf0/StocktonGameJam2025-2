@@ -35,9 +35,9 @@ var active := [true, true, true]
 var perfect_ranges: Array = []
 
 var difficulty_settings = {
-	1: {"range_size": 0.25, "time_limit": 10.0, "speed": 1.0},
-	2: {"range_size": 0.18, "time_limit": 7.5, "speed": 1.2},
-	3: {"range_size": 0.12, "time_limit": 5.0, "speed": 1.5}
+	1: {"range_size": 0.3, "time_limit": 10.0, "speed": 1.0},
+	2: {"range_size": 0.27, "time_limit": 7.5, "speed": 1.1},
+	3: {"range_size": 0.25, "time_limit": 5.0, "speed": 1.3}
 }
 
 const FADE_TIME = 1.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://yjl7pni13bil"]
 
 [ext_resource type="Script" uid="uid://cl1uq3lsg8moi" path="res://gameplay/coreGameplay/GameManager.gd" id="1_odk7f"]
-[ext_resource type="PackedScene" uid="uid://m3cob6b5boco" path="res://gameplay/minigames/roomba.tscn" id="2_aovv8"]
+[ext_resource type="PackedScene" uid="uid://dk0vm1432kb3m" path="res://gameplay/minigames/Catapult.tscn" id="2_aovv8"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_odk7f")

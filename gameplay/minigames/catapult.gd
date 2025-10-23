@@ -13,6 +13,9 @@ extends Minigame
 @onready var music = preload("res://assets/msfx/minigameMusic/gun head guy thing_2.wav")
 @onready var fire_sfx = preload("res://assets/minigames/Catapult/cornguylaunch.mp3")
 
+@onready var pivot = $Game/CatapultBase/Pivot
+@onready var launch_pos = $Game/CatapultBase/Pivot/CornGunGuyHead/LaunchPosition
+
 var gravity := Vector2(0, 200)
 var projectile_velocity := Vector2.ZERO
 var launched := false
@@ -20,6 +23,7 @@ var game_finished := false
 
 var power_range := Vector2(50, 120)
 var angle_range := Vector2(15, 75)
+var bounds := Rect2(70, 30, 100, 70)
 var collision_radius := 15
 
 const FADE_TIME = 1.0
@@ -31,20 +35,16 @@ func start():
 	launched = false
 	_reset_projectile()
 
-	# random target placement
-	var dist_min = 100 + difficulty * 5
-	var dist_max = 180 + difficulty * 10
-	var height_min = 20
-	var height_max = 150
-	target.position = Vector2(randf_range(dist_min, dist_max), randf_range(height_min, height_max))
+	target.position = Vector2(
+		randf_range(bounds.position.x, bounds.end.x),
+		randf_range(bounds.position.y, bounds.end.y)
+	)
 
 	gravity.y = 60 + randf_range(0, difficulty * 10)
 
-	# random starting sliders
 	power_slider.value = randf_range(0, power_slider.max_value)
 	angle_slider.value = randf_range(0, angle_slider.max_value)
 
-	# disconnect any old signals before reconnecting
 	if power_slider.is_connected("value_changed", _update_arc):
 		power_slider.disconnect("value_changed", _update_arc)
 	if angle_slider.is_connected("value_changed", _update_arc):
@@ -54,29 +54,30 @@ func start():
 	if timer.is_connected("time_up", _on_time_up):
 		timer.disconnect("time_up", _on_time_up)
 
-	# reconnect signals cleanly
 	power_slider.value_changed.connect(_update_arc)
 	angle_slider.value_changed.connect(_update_arc)
 	launch_button.pressed.connect(_on_launch_pressed)
 	timer.time_up.connect(_on_time_up)
 
-	# start music and timer
 	_fade_in_music()
 	_update_arc()
 	timer.start()
-
-
+	
 func _update_arc(_v = 0):
 	var angle_deg = lerp(angle_range.x, angle_range.y, angle_slider.value / angle_slider.max_value)
 	var power = lerp(power_range.x, power_range.y, power_slider.value / power_slider.max_value)
 	var angle_rad = deg_to_rad(angle_deg)
+
+	pivot.rotation = -angle_rad
+
 	var v0 = Vector2(cos(angle_rad), -sin(angle_rad)) * power
+	var start_pos = launch_pos.global_position
 
 	var points = []
 	for t in range(0, 20):
 		var time = t * 0.05
-		var pos = Vector2(v0.x * time, v0.y * time + 0.5 * gravity.y * time * time)
-		points.append(projectile.position + pos)
+		var pos = start_pos + Vector2(v0.x * time, v0.y * time + 0.5 * gravity.y * time * time)
+		points.append(pos)
 	arc_line.points = points
 
 
@@ -91,12 +92,16 @@ func _on_launch_pressed():
 	var angle_deg = lerp(angle_range.x, angle_range.y, angle_slider.value / angle_slider.max_value)
 	var power = lerp(power_range.x, power_range.y, power_slider.value / power_slider.max_value)
 	var angle_rad = deg_to_rad(angle_deg)
+
 	projectile_velocity = Vector2(cos(angle_rad), -sin(angle_rad)) * power
+
+	projectile.position = launch_pos.global_position
 
 	arc_line.visible = false
 	power_slider.editable = false
 	angle_slider.editable = false
 	launch_button.disabled = true
+
 
 
 func _process(delta):

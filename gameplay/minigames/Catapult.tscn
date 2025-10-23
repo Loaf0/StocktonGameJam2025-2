@@ -1,13 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://dk0vm1432kb3m"]
+[gd_scene load_steps=20 format=3 uid="uid://dk0vm1432kb3m"]
 
 [ext_resource type="Script" uid="uid://dq7or2ucvdfqd" path="res://gameplay/minigames/catapult.gd" id="1_wmynx"]
 [ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="2_38y13"]
 [ext_resource type="Texture2D" uid="uid://cnkkfj0tihplq" path="res://assets/minigames/Catapult/Background.png" id="2_sdgpq"]
 [ext_resource type="Texture2D" uid="uid://4vj5ft6s17b" path="res://assets/minigames/Catapult/Mob man.png" id="3_32xah"]
 [ext_resource type="Texture2D" uid="uid://cgr53jbqgtl0u" path="res://assets/minigames/Oven/Cheeseburger.jpg" id="3_unhu0"]
-[ext_resource type="Texture2D" uid="uid://b8mtsgvrto5bu" path="res://assets/minigames/Catapult/CornGunGuy.png" id="4_38y13"]
 [ext_resource type="Texture2D" uid="uid://ddp6xelwh0ldv" path="res://assets/minigames/Catapult/Corn ball.png" id="4_tdbx0"]
 [ext_resource type="Texture2D" uid="uid://bhnfk7ncxaxjt" path="res://assets/minigames/Catapult/Target.png" id="5_unhu0"]
+[ext_resource type="Texture2D" uid="uid://cvemr4cet1yqn" path="res://assets/minigames/Catapult/Corn gun guy body.png" id="7_sqql6"]
+[ext_resource type="Texture2D" uid="uid://bvqyqomox6714" path="res://assets/minigames/Catapult/Corn Gun guy head.png" id="8_4wua4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sqql6"]
 
@@ -95,6 +96,10 @@ _data = {
 &"RESET": SubResource("Animation_16em2")
 }
 
+[sub_resource type="Curve" id="Curve_sqql6"]
+_data = [Vector2(0.371831, 0.24502212), 0.0, 0.0, 0, 0, Vector2(1, 0.2522124), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="Catapult" type="Node2D"]
 script = ExtResource("1_wmynx")
 
@@ -177,6 +182,10 @@ texture = ExtResource("3_unhu0")
 
 [node name="Game" type="Node2D" parent="."]
 
+[node name="Estimation" type="Line2D" parent="Game"]
+width = 7.0
+width_curve = SubResource("Curve_sqql6")
+
 [node name="Projectile" type="Node2D" parent="Game"]
 position = Vector2(-10, 95)
 
@@ -185,20 +194,26 @@ texture = ExtResource("4_tdbx0")
 region_rect = Rect2(90, 36, 9, 9)
 
 [node name="CatapultBase" type="Node2D" parent="Game"]
-position = Vector2(42, 114)
+position = Vector2(38, 121)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Game/CatapultBase"]
-scale = Vector2(0.47500002, 0.47500002)
-texture = ExtResource("4_38y13")
+texture = ExtResource("7_sqql6")
+
+[node name="Pivot" type="Node2D" parent="Game/CatapultBase"]
+position = Vector2(0, -17)
+
+[node name="CornGunGuyHead" type="Sprite2D" parent="Game/CatapultBase/Pivot"]
+position = Vector2(9, -6)
+texture = ExtResource("8_4wua4")
+
+[node name="LaunchPosition" type="Node2D" parent="Game/CatapultBase/Pivot/CornGunGuyHead"]
+position = Vector2(18, 0)
 
 [node name="Target" type="Node2D" parent="Game"]
 position = Vector2(-34, 97)
 
 [node name="Sprite2D" type="Sprite2D" parent="Game/Target"]
 texture = ExtResource("5_unhu0")
-
-[node name="Estimation" type="Line2D" parent="Game"]
-width = 7.0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
