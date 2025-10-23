@@ -50,14 +50,14 @@ func _process(delta: float):
 	var ratio = clamp(elapsed / duration, 0.0, 1.0)
 	bar.value = (1.0 - ratio) * 100.0
 
-	var stylebox_fill = bar.get("theme_override_styles/fill")
-	if stylebox_fill:
-		if ratio < 0.5:
-			stylebox_fill.bg_color = color_good
-		elif ratio < 0.8:
-			stylebox_fill.bg_color = color_warn
-		else:
-			stylebox_fill.bg_color = color_critical
+	#var stylebox_fill = bar.get("theme_override_styles/fill")
+	#if stylebox_fill:
+		#if ratio < 0.5:
+			#stylebox_fill.bg_color = color_good
+		#elif ratio < 0.8:
+			#stylebox_fill.bg_color = color_warn
+		#else:
+			#stylebox_fill.bg_color = color_critical
 
 	if elapsed >= duration:
 		running = false
