@@ -13,7 +13,7 @@ extends Node
 @export var recent_queue_size: int = 3
 @export var base_speed: float = 1.0
 @export var base_difficulty: int = 1
-@export var speed_increment: float = 0.075
+@export var speed_increment: float = 0.1
 
 var minigame_paths: Array = []
 var recent_minigames: Array = []
@@ -31,6 +31,8 @@ func _ready():
 	transition = transition_scene.instantiate()
 	add_child(transition)
 	load_next_minigame()
+	current_speed = base_speed
+	current_difficulty = base_difficulty
 
 func _get_all_minigames(path: String) -> Array:
 	var result: Array = []

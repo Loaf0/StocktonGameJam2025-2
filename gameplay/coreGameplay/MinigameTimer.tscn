@@ -1,6 +1,34 @@
-[gd_scene load_steps=2 format=3 uid="uid://07ujs6uw6ish"]
+[gd_scene load_steps=12 format=3 uid="uid://07ujs6uw6ish"]
 
 [ext_resource type="Script" uid="uid://cl1nnqsldsfm4" path="res://gameplay/coreGameplay/minigame_timer.gd" id="1_ikv8c"]
+[ext_resource type="Texture2D" uid="uid://cfmxte41psxit" path="res://assets/coreGameplay/progressBar/Bar_for_timer.png" id="2_xbcsb"]
+[ext_resource type="Texture2D" uid="uid://del6tkdce730v" path="res://assets/coreGameplay/progressBar/Bar for timer1.png" id="3_qyys8"]
+[ext_resource type="Texture2D" uid="uid://bq6e0wthwm7ne" path="res://assets/coreGameplay/progressBar/Bar for timer2.png" id="4_j37cy"]
+[ext_resource type="Texture2D" uid="uid://csd67c7e2gvls" path="res://assets/coreGameplay/progressBar/Bar for timer3.png" id="5_ibin3"]
+[ext_resource type="Texture2D" uid="uid://una703dxh21a" path="res://assets/coreGameplay/progressBar/Bar for timer4.png" id="6_f3888"]
+[ext_resource type="Texture2D" uid="uid://domua27awrbwj" path="res://assets/coreGameplay/progressBar/Bar for time5.png" id="7_35ukt"]
+[ext_resource type="Texture2D" uid="uid://1jgp6e1sb4du" path="res://assets/coreGameplay/progressBar/Bar for time6.png" id="8_oyxj5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_02a7b"]
+texture = ExtResource("2_xbcsb")
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_3sm4m"]
+frames = 6
+frame_0/texture = ExtResource("3_qyys8")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("4_j37cy")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("5_ibin3")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("6_f3888")
+frame_3/duration = 0.1
+frame_4/texture = ExtResource("7_35ukt")
+frame_4/duration = 0.1
+frame_5/texture = ExtResource("8_oyxj5")
+frame_5/duration = 0.1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c3yas"]
+texture = SubResource("AnimatedTexture_3sm4m")
 
 [node name="MinigameTimer" type="CanvasLayer"]
 layer = 8
@@ -19,6 +47,15 @@ mouse_filter = 2
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 11.0
+offset_top = 0.5
+offset_bottom = 11.5
 grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxTexture_02a7b")
+theme_override_styles/fill = SubResource("StyleBoxTexture_c3yas")
+value = 100.0
 show_percentage = false
+
+[node name="BarForTimer" type="Sprite2D" parent="."]
+position = Vector2(100, 6)
+scale = Vector2(1.010101, 0.9230769)
+texture = ExtResource("2_xbcsb")

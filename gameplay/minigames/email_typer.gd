@@ -19,6 +19,8 @@ extends Minigame
 @onready var timer := $MinigameTimer
 @onready var anim := $AnimationPlayer
 
+var playing := false
+
 const CHAR_ATLAS_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 const CHAR_WIDTH = 16.0
 const CHAR_HEIGHT = 16.0
@@ -36,7 +38,8 @@ const FADE_TIME = 1.0
 const KEY_SHADER = preload("res://assets/minigames/EmailTyper/EmailTyper.gdshader")
 
 func start():
-	num_letters_to_type = 5 + 2 * difficulty
+	playing = true
+	num_letters_to_type = 2 + (2 * difficulty)
 	label_email.bbcode_enabled = true
 	randomize()
 	var email : String = emails[randi() % emails.size()]
@@ -135,6 +138,8 @@ func _update_keyboard_glow():
 		material.set_shader_parameter("Color_Tint", target_color)
 
 func _on_key_pressed(letter: String) -> void:
+	if not playing:
+		return
 	if current_index >= target_text.length():
 		return
 	
@@ -167,6 +172,9 @@ func _skip_non_letters():
 		current_index += 1
 
 func _on_time_up() -> void:
+	if not playing:
+		return
+	playing = false
 	timer.stop()
 	_fade_out_music()
 	await _play_finish_animation(false)
