@@ -11,6 +11,10 @@ extends Minigame
 
 @onready var roomba_sfx = preload("res://assets/minigames/Roomba/roomba.mp3")
 
+@onready var extra_boundry1 = $CanvasLayer/TableWithCarpet/StaticBody2D2/CollisionShape2D
+@onready var extra_boundry2 = $CanvasLayer/Lazyboy/StaticBody2D/CollisionShape2D
+
+
 var difficulty_settings = {
 	1: {"trash_count": 3, "time_limit": 10.0, "speed": 40.0},
 	2: {"trash_count": 4, "time_limit": 8.0, "speed": 55.0},
@@ -22,11 +26,16 @@ var roomba_target := Vector2.ZERO
 var roomba_speed := 0.0
 var base_speed := 40.0
 var accelerating := false
-var bounds := Rect2(0, 0, 200, 200)
-var finished := false  # prevent double finish calls
+var turning := false
+var bounds := Rect2(30, 30, 140, 140)
+var finished := false 
 
 const FADE_TIME = 1.0
+const PAUSE_AFTER_WALL = 0.1
+const TURN_SPEED = 6.0
+const TURN_DELAY = 0.2 
 
+var obstacles: Array = []
 
 func start():
 	randomize()
@@ -36,14 +45,17 @@ func start():
 	base_speed = s["speed"]
 	accelerating = false
 
-	# Disconnect timer signal if already connected
 	if timer.is_connected("time_up", _on_time_up):
 		timer.disconnect("time_up", _on_time_up)
 	timer.time_up.connect(_on_time_up)
 
-	# Clean up any leftover trash from last round
 	for child in trash_container.get_children():
 		child.queue_free()
+
+	obstacles = [
+		_get_shape_rect(extra_boundry1),
+		_get_shape_rect(extra_boundry2)
+	]
 
 	_spawn_trash(s["trash_count"])
 	remaining_trash = s["trash_count"]
@@ -53,35 +65,43 @@ func start():
 
 
 func _spawn_trash(count: int):
-	for i in range(count):
+	var attempts = 0
+	while trash_container.get_child_count() < count and attempts < 500:
+		attempts += 1
+		var pos = Vector2(randf_range(bounds.position.x, bounds.end.x),
+						  randf_range(bounds.position.y, bounds.end.y))
+		var radius = 6.0
+		var valid = true
+
+		for rect in obstacles:
+			if rect.has_point(pos):
+				valid = false
+				break
+
+		if not valid:
+			continue
+
 		var t = Area2D.new()
 		var sprite = Sprite2D.new()
 		sprite.texture = preload("res://assets/minigames/Roomba/Trash.png")
 		var shape = CollisionShape2D.new()
 		shape.shape = CircleShape2D.new()
-		shape.shape.radius = 6
+		shape.shape.radius = radius
 
-		t.position = Vector2(randf_range(20, 180), randf_range(20, 180))
+		t.position = pos
 		t.add_child(sprite)
 		t.add_child(shape)
-
-		# Disconnect any old signal bindings before connecting
-		if t.is_connected("body_entered", _on_trash_collected):
-			t.disconnect("body_entered", _on_trash_collected)
 		t.body_entered.connect(_on_trash_collected.bind(t))
-
 		trash_container.add_child(t)
-
 
 func _input(event):
 	if finished:
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		_spawn_wave(event.position)
-		roomba_target = event.position.clamp(bounds.position, bounds.end)
-		roomba_speed = base_speed
-		accelerating = true
-
+		var target = event.position.clamp(bounds.position, bounds.end)
+		_spawn_wave(target)
+		roomba_target = target
+		_redirect_to_target()
 
 func _spawn_wave(pos: Vector2):
 	var wave = Node2D.new()
@@ -106,16 +126,38 @@ func _spawn_wave(pos: Vector2):
 	tween.tween_property(mat, "shader_parameter/color:a", 0.0, 0.2)
 	tween.finished.connect(func(): wave.queue_free())
 
-
 func _process(delta):
 	if accelerating:
+		var old_pos = roomba.position
 		var dir = (roomba_target - roomba.position).normalized()
 		roomba.position += dir * roomba_speed * delta
 		roomba_speed += 40 * delta
+
+		var clamped = roomba.position.clamp(bounds.position, bounds.end)
+		if clamped != roomba.position:
+			roomba.position = clamped
+			await _pause_after_collision()
+			return
+
+		for rect in obstacles:
+			if rect.has_point(roomba.position):
+				roomba.position = old_pos
+				await _pause_after_collision()
+				return
+
 		if roomba.position.distance_to(roomba_target) < 4:
 			accelerating = false
-		roomba.position = roomba.position.clamp(bounds.position, bounds.end)
 
+
+func _pause_after_collision():
+	if finished:
+		return
+	accelerating = false
+	roomba_speed = 0.0
+	await get_tree().create_timer(PAUSE_AFTER_WALL).timeout
+	if not finished and roomba_target != roomba.position:
+		roomba_speed = base_speed
+		accelerating = true
 
 func _on_trash_collected(body: Node2D, trash: Area2D):
 	if finished:
@@ -167,3 +209,39 @@ func _fade_out_music():
 	tween.tween_property(music_player, "volume_db", -80.0, FADE_TIME)
 	await tween.finished
 	music_player.stop()
+	
+
+func _redirect_to_target():
+	turning = false
+	accelerating = false
+	roomba_speed = 0.0
+
+	var desired_angle = (roomba_target - roomba.position).angle()
+	var angle_diff = angular_distance(roomba.rotation, desired_angle)
+	var duration = abs(angle_diff) / TURN_SPEED
+
+	var tween = create_tween()
+	tween.tween_property(roomba, "rotation", roomba.rotation + angle_diff, duration).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	await tween.finished
+
+	await get_tree().create_timer(TURN_DELAY).timeout
+	if not finished:
+		roomba_speed = base_speed
+		accelerating = true
+
+
+func angular_distance(from: float, to: float) -> float:
+	var diff = to - from
+	while diff > PI:
+		diff -= PI * 2
+	while diff <= -PI:
+		diff += PI * 2
+	return diff
+
+func _get_shape_rect(shape_node: CollisionShape2D) -> Rect2:
+	if shape_node.shape is RectangleShape2D:
+		var rect_shape: RectangleShape2D = shape_node.shape
+		var pos = shape_node.global_position - rect_shape.extents
+		return Rect2(pos, rect_shape.extents * 2)
+	else:
+		return Rect2()

@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://m3cob6b5boco"]
+[gd_scene load_steps=16 format=3 uid="uid://m3cob6b5boco"]
 
 [ext_resource type="Script" uid="uid://cr5vh7r3ven0m" path="res://gameplay/minigames/roomba.gd" id="1_fd4hn"]
 [ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="1_vfir0"]
 [ext_resource type="Texture2D" uid="uid://d1vxu8pb2e1en" path="res://assets/minigames/Roomba/Background (2).png" id="2_0lrgr"]
 [ext_resource type="Texture2D" uid="uid://brhbu4cmscw3f" path="res://assets/minigames/Roomba/Roomba.png" id="3_p0vjo"]
+[ext_resource type="Texture2D" uid="uid://c0r64bmvv44tu" path="res://assets/minigames/Roomba/lazyboy.png" id="5_monc8"]
+[ext_resource type="Texture2D" uid="uid://bcidb5njuhpbk" path="res://assets/minigames/Roomba/Table with carpet.png" id="6_c3i6q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4t27p"]
 atlas = ExtResource("2_0lrgr")
@@ -19,6 +21,12 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxhkk"]
+size = Vector2(89, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3if0f"]
+size = Vector2(52, 53)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fd4hn"]
 
@@ -51,17 +59,41 @@ sprite_frames = SubResource("SpriteFrames_monc8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="TableWithCarpet" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(97, 129)
+texture = ExtResource("6_c3i6q")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="CanvasLayer/TableWithCarpet"]
+position = Vector2(-1, -69)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/TableWithCarpet/StaticBody2D2"]
+position = Vector2(0.5, 64.5)
+shape = SubResource("RectangleShape2D_uxhkk")
+
+[node name="Lazyboy" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(96, 50)
+texture = ExtResource("5_monc8")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CanvasLayer/Lazyboy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Lazyboy/StaticBody2D"]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_3if0f")
+
 [node name="TrashContainer" type="Node2D" parent="CanvasLayer"]
 
 [node name="WaveContainer" type="Node2D" parent="CanvasLayer"]
 
 [node name="Roomba" type="CharacterBody2D" parent="CanvasLayer"]
+position = Vector2(30, 30)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Roomba"]
 texture = ExtResource("3_p0vjo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Roomba"]
 shape = SubResource("CircleShape2D_fd4hn")
+
+[node name="Props" type="Node2D" parent="CanvasLayer"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

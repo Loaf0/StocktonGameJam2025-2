@@ -39,7 +39,7 @@ const KEY_SHADER = preload("res://assets/minigames/EmailTyper/EmailTyper.gdshade
 
 func start():
 	playing = true
-	num_letters_to_type = 2 + (2 * difficulty)
+	num_letters_to_type = 4 + (2 * difficulty)
 	label_email.bbcode_enabled = true
 	randomize()
 	var email : String = emails[randi() % emails.size()]

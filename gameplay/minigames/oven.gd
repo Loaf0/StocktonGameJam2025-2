@@ -30,7 +30,7 @@ extends Minigame
 @onready var container_width : float = $CanvasLayer/ButtonContainer.size.x
 
 var times := [0.0, 1.5, 3.2]
-var bounce_speed := [1.2, 1.0, 1.5]
+var bounce_speed := [1.2, 1.0, .8]
 var active := [true, true, true]
 var perfect_ranges: Array = []
 
@@ -61,6 +61,7 @@ func start():
 	_setup_buttons()
 	timer.start(settings["time_limit"])
 	timer.time_up.connect(_on_time_up)
+	speed = 1 + ((speed - 1) / 3)
 
 
 func _fade_in_music():
