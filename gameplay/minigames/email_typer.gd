@@ -89,7 +89,7 @@ func _setup_keyboard():
 	_update_keyboard_glow()
 
 func _setup_timer():
-	var base_time := 15.0
+	var base_time := 12.0
 	var time_mod := 1.0
 	match difficulty:
 		1:

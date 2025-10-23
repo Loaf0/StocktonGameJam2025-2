@@ -12,13 +12,19 @@ extends Minigame
 ]
 @onready var submit := $CanvasLayer/SubmitButton
 
+@onready var switch_sfx = preload("res://assets/minigames/RoboRepair/Switch.mp3")
+@onready var music = preload("res://assets/msfx/minigameMusic/robot thing.wav")
+@onready var music_player = $AudioStreamPlayer2D
+
+const FADE_TIME = 1.0
+
 var target_config := {}
 var finished := false
 
 var difficulty_settings = {
-	1: {"time_limit": 20.0},
-	2: {"time_limit": 15.0},
-	3: {"time_limit": 10.0}
+	1: {"time_limit": 12.5},
+	2: {"time_limit": 9.0},
+	3: {"time_limit": 6.0}
 }
 
 # Compass direction mapping for gear indices
@@ -28,9 +34,9 @@ const COMPASS_DIRECTIONS = [
 
 func start():
 	randomize()
+	_fade_in_music()
 	var settings = difficulty_settings.get(difficulty, difficulty_settings[1])
 
-	# Disconnect signals first to avoid stacking from restarts
 	if timer.is_connected("time_up", _on_time_up):
 		timer.disconnect("time_up", _on_time_up)
 	timer.time_up.connect(_on_time_up)
@@ -90,7 +96,7 @@ func _generate_target_config():
 		{"id": "toggle2", "type": "toggle", "index": 1},
 		{"id": "toggle3", "type": "toggle", "index": 2}
 	]
-	var num_instructions := 2 + difficulty
+	var num_instructions := 1 + difficulty
 	possible_components.shuffle()
 
 	for i in range(num_instructions):
@@ -99,7 +105,7 @@ func _generate_target_config():
 			"gear":
 				target_config[c.id] = randi() % COMPASS_DIRECTIONS.size()
 			"slider":
-				target_config[c.id] = randf_range(0, 6)
+				target_config[c.id] = randi_range(0, 6)
 			"toggle":
 				target_config[c.id] = bool(randi() % 2)
 
@@ -122,13 +128,17 @@ func _display_instructions():
 func _on_gear_changed(gear_name: String, pos: String):
 	print("Gear %s set to %s" % [gear_name, pos])
 
-func _on_slider_changed(_value): pass
-func _on_toggle_changed(_value): pass
+func _on_slider_changed(_value): 
+	_play_one_shot_sfx(switch_sfx, 0.03)
+
+func _on_toggle_changed(_value): 
+	_play_one_shot_sfx(switch_sfx, 0.03)
 
 func _on_submit_pressed():
 	if finished: return
 	finished = true
-
+	_play_one_shot_sfx(switch_sfx, 0.03)
+	_fade_out_music()
 	timer.stop()
 	var success = _check_success()
 	await _play_finish_animation(success)
@@ -173,3 +183,18 @@ func _play_finish_animation(success: bool):
 	else:
 		anim.play("Fail")
 	return await anim.animation_finished
+
+func _fade_in_music():
+	music_player.stream = music
+	music_player.volume_db = -80.0
+	music_player.play()
+
+	var tween = create_tween()
+	tween.tween_property(music_player, "volume_db", Settings.MUSIC_VOLUME_DB, FADE_TIME)
+
+
+func _fade_out_music():
+	var tween = create_tween()
+	tween.tween_property(music_player, "volume_db", -80.0, FADE_TIME)
+	await tween.finished
+	music_player.stop()

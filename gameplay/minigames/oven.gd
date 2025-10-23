@@ -138,9 +138,7 @@ func _on_button_pressed(i: int):
 		await _play_finish_animation(false)
 		emit_signal("minigame_finished", false)
 		return
-	
-	_check_end_condition()
-	
+		
 	_check_end_condition()
 
 func _check_end_condition():
