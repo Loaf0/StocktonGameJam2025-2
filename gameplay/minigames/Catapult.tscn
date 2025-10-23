@@ -1,12 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://dk0vm1432kb3m"]
+[gd_scene load_steps=18 format=3 uid="uid://dk0vm1432kb3m"]
 
 [ext_resource type="Script" uid="uid://dq7or2ucvdfqd" path="res://gameplay/minigames/catapult.gd" id="1_wmynx"]
 [ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="2_38y13"]
+[ext_resource type="Texture2D" uid="uid://cnkkfj0tihplq" path="res://assets/minigames/Catapult/Background.png" id="2_sdgpq"]
+[ext_resource type="Texture2D" uid="uid://4vj5ft6s17b" path="res://assets/minigames/Catapult/Mob man.png" id="3_32xah"]
 [ext_resource type="Texture2D" uid="uid://cgr53jbqgtl0u" path="res://assets/minigames/Oven/Cheeseburger.jpg" id="3_unhu0"]
 [ext_resource type="Texture2D" uid="uid://b8mtsgvrto5bu" path="res://assets/minigames/Catapult/CornGunGuy.png" id="4_38y13"]
+[ext_resource type="Texture2D" uid="uid://ddp6xelwh0ldv" path="res://assets/minigames/Catapult/Corn ball.png" id="4_tdbx0"]
+[ext_resource type="Texture2D" uid="uid://bhnfk7ncxaxjt" path="res://assets/minigames/Catapult/Target.png" id="5_unhu0"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_38y13"]
-font_size = 12
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sqql6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4wua4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i5u0y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n1dof"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvvys"]
 
 [sub_resource type="Animation" id="Animation_usjo3"]
 resource_name = "Fail"
@@ -87,6 +98,14 @@ _data = {
 [node name="Catapult" type="Node2D"]
 script = ExtResource("1_wmynx")
 
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(100, 100)
+texture = ExtResource("2_sdgpq")
+
+[node name="Mobman" type="Sprite2D" parent="Background"]
+position = Vector2(-59, -50)
+texture = ExtResource("3_32xah")
+
 [node name="MinigameTimer" parent="." instance=ExtResource("2_38y13")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -107,20 +126,11 @@ anchors_preset = -1
 anchor_top = 0.395
 anchor_right = 0.49
 anchor_bottom = 1.0
-offset_top = -0.010000229
+offset_left = 105.0
+offset_top = -17.01
+offset_right = 76.0
+offset_bottom = -24.0
 grow_vertical = 0
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/Power"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.75200003
-anchor_right = 0.99000007
-offset_top = 0.7920008
-offset_bottom = 8.0
-text = "Power"
-label_settings = SubResource("LabelSettings_38y13")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Angle" type="HSlider" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -129,22 +139,12 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -23.0
+offset_left = -174.0
+offset_top = -40.0
+offset_right = -106.0
+offset_bottom = -24.0
 grow_horizontal = 0
 grow_vertical = 0
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/Angle"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = -0.75200003
-anchor_right = 0.99000007
-offset_top = 0.7920008
-offset_bottom = 8.0
-text = "Angle"
-label_settings = SubResource("LabelSettings_38y13")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Launch" type="Button" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -152,13 +152,17 @@ anchors_preset = -1
 anchor_top = -0.23700002
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 85.0
-offset_top = 3.0060005
-offset_right = -82.5
-offset_bottom = -22.0
+offset_left = 125.0
+offset_top = -35.994
+offset_right = -22.0
+offset_bottom = -63.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 10
-text = "Fire"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sqql6")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4wua4")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_i5u0y")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_n1dof")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kvvys")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -177,13 +181,12 @@ texture = ExtResource("3_unhu0")
 position = Vector2(-10, 95)
 
 [node name="Sprite2D" type="Sprite2D" parent="Game/Projectile"]
-scale = Vector2(0.80166686, 0.80166686)
-texture = ExtResource("4_38y13")
-region_enabled = true
+texture = ExtResource("4_tdbx0")
 region_rect = Rect2(90, 36, 9, 9)
 
 [node name="CatapultBase" type="Node2D" parent="Game"]
-position = Vector2(19, 98)
+position = Vector2(42, 114)
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Game/CatapultBase"]
 scale = Vector2(0.47500002, 0.47500002)
@@ -193,10 +196,9 @@ texture = ExtResource("4_38y13")
 position = Vector2(-34, 97)
 
 [node name="Sprite2D" type="Sprite2D" parent="Game/Target"]
-texture = ExtResource("4_38y13")
-region_enabled = true
-region_rect = Rect2(27.481224, 65.333595, 29.777779, 26.962967)
+texture = ExtResource("5_unhu0")
 
 [node name="Estimation" type="Line2D" parent="Game"]
+width = 7.0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

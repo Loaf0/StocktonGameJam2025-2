@@ -20,7 +20,7 @@ var game_finished := false
 
 var power_range := Vector2(50, 120)
 var angle_range := Vector2(15, 75)
-var collision_radius := 20
+var collision_radius := 15
 
 const FADE_TIME = 1.0
 

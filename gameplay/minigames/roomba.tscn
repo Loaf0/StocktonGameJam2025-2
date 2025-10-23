@@ -1,19 +1,30 @@
-[gd_scene load_steps=11 format=3 uid="uid://m3cob6b5boco"]
+[gd_scene load_steps=12 format=3 uid="uid://m3cob6b5boco"]
 
 [ext_resource type="Script" uid="uid://cr5vh7r3ven0m" path="res://gameplay/minigames/roomba.gd" id="1_fd4hn"]
 [ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="1_vfir0"]
+[ext_resource type="Texture2D" uid="uid://d1vxu8pb2e1en" path="res://assets/minigames/Roomba/Background (2).png" id="2_0lrgr"]
+[ext_resource type="Texture2D" uid="uid://brhbu4cmscw3f" path="res://assets/minigames/Roomba/Roomba.png" id="3_p0vjo"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fd4hn"]
-size = Vector2(3, 3)
+[sub_resource type="AtlasTexture" id="AtlasTexture_4t27p"]
+atlas = ExtResource("2_0lrgr")
+region = Rect2(0, 0, 200, 200)
 
-[sub_resource type="Gradient" id="Gradient_fd4hn"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_p0vjo"]
-gradient = SubResource("Gradient_fd4hn")
-width = 20
-height = 20
+[sub_resource type="SpriteFrames" id="SpriteFrames_monc8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4t27p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fd4hn"]
+
+[sub_resource type="Animation" id="Animation_un7j3"]
+resource_name = "Fail"
+length = 0.6
 
 [sub_resource type="Animation" id="Animation_2pff3"]
 resource_name = "Pass"
@@ -21,10 +32,6 @@ length = 0.6
 
 [sub_resource type="Animation" id="Animation_16em2"]
 length = 0.001
-
-[sub_resource type="Animation" id="Animation_un7j3"]
-resource_name = "Fail"
-length = 0.6
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_un7j3"]
 _data = {
@@ -36,12 +43,11 @@ _data = {
 [node name="Roomba" type="Node2D"]
 script = ExtResource("1_fd4hn")
 
-[node name="MinigameTimer" parent="." instance=ExtResource("1_vfir0")]
-
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Background" type="AnimatedSprite2D" parent="."]
 position = Vector2(100, 100)
-scale = Vector2(66.666664, 66.666664)
-texture = SubResource("PlaceholderTexture2D_fd4hn")
+sprite_frames = SubResource("SpriteFrames_monc8")
+
+[node name="MinigameTimer" parent="." instance=ExtResource("1_vfir0")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -52,7 +58,7 @@ texture = SubResource("PlaceholderTexture2D_fd4hn")
 [node name="Roomba" type="CharacterBody2D" parent="CanvasLayer"]
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Roomba"]
-texture = SubResource("GradientTexture2D_p0vjo")
+texture = ExtResource("3_p0vjo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Roomba"]
 shape = SubResource("CircleShape2D_fd4hn")

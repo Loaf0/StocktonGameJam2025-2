@@ -56,8 +56,7 @@ func _spawn_trash(count: int):
 	for i in range(count):
 		var t = Area2D.new()
 		var sprite = Sprite2D.new()
-		sprite.texture = preload("res://icon.svg")
-		sprite.scale = Vector2(0.15, 0.15)
+		sprite.texture = preload("res://assets/minigames/Roomba/Trash.png")
 		var shape = CollisionShape2D.new()
 		shape.shape = CircleShape2D.new()
 		shape.shape.radius = 6
