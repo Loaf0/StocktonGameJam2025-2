@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://m3cob6b5boco"]
+[gd_scene load_steps=21 format=3 uid="uid://m3cob6b5boco"]
 
 [ext_resource type="Script" uid="uid://cr5vh7r3ven0m" path="res://gameplay/minigames/roomba.gd" id="1_fd4hn"]
 [ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="1_vfir0"]
@@ -11,6 +11,26 @@
 atlas = ExtResource("2_0lrgr")
 region = Rect2(0, 0, 200, 200)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wb10"]
+atlas = ExtResource("2_0lrgr")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_monc8"]
+atlas = ExtResource("2_0lrgr")
+region = Rect2(0, 200, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3i6q"]
+atlas = ExtResource("2_0lrgr")
+region = Rect2(0, 400, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3if0f"]
+atlas = ExtResource("2_0lrgr")
+region = Rect2(0, 600, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxhkk"]
+atlas = ExtResource("2_0lrgr")
+region = Rect2(0, 800, 200, 200)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_monc8"]
 animations = [{
 "frames": [{
@@ -20,6 +40,29 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wb10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_monc8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3i6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3if0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxhkk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wb10")
+}],
+"loop": false,
+"name": &"shine",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxhkk"]
@@ -54,6 +97,7 @@ script = ExtResource("1_fd4hn")
 [node name="Background" type="AnimatedSprite2D" parent="."]
 position = Vector2(100, 100)
 sprite_frames = SubResource("SpriteFrames_monc8")
+animation = &"shine"
 
 [node name="MinigameTimer" parent="." instance=ExtResource("1_vfir0")]
 

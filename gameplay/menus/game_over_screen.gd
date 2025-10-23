@@ -14,5 +14,5 @@ func _ready():
 
 func show_game_over(final_score: int, difficulty: String):
 	title_label.text = "Game Over"
-	score_label.text = "Difficulty: %s\nFinal Score: %d" % [difficulty, final_score]
+	score_label.text = str(final_score)
 	visible = true

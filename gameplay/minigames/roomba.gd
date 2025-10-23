@@ -5,6 +5,7 @@ extends Minigame
 @onready var wave_container = $CanvasLayer/WaveContainer
 @onready var timer: GameTimer = $MinigameTimer
 @onready var anim = $AnimationPlayer
+@onready var background_sprite = $Background
 
 @onready var music_player = $AudioStreamPlayer2D
 @onready var music = preload("res://assets/msfx/minigameMusic/roomba thing.wav")
@@ -191,6 +192,7 @@ func _on_time_up():
 
 func _play_finish_animation(success: bool):
 	if success:
+		background_sprite.play("shine")
 		anim.play("Pass")
 	else:
 		anim.play("Fail")
