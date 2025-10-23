@@ -10,6 +10,7 @@ extends Minigame
 @onready var music = preload("res://assets/msfx/minigameMusic/roomba thing.wav")
 
 @onready var roomba_sfx = preload("res://assets/minigames/Roomba/roomba.mp3")
+@onready var ping_sfx = preload("res://assets/minigames/Roomba/ping.mp3")
 
 @onready var extra_boundry1 = $CanvasLayer/TableWithCarpet/StaticBody2D2/CollisionShape2D
 @onready var extra_boundry2 = $CanvasLayer/Lazyboy/StaticBody2D/CollisionShape2D
@@ -17,8 +18,8 @@ extends Minigame
 
 var difficulty_settings = {
 	1: {"trash_count": 3, "time_limit": 10.0, "speed": 40.0},
-	2: {"trash_count": 4, "time_limit": 8.0, "speed": 55.0},
-	3: {"trash_count": 5, "time_limit": 6.0, "speed": 70.0}
+	2: {"trash_count": 4, "time_limit": 9.0, "speed": 55.0},
+	3: {"trash_count": 5, "time_limit": 8.0, "speed": 70.0}
 }
 
 var remaining_trash := 0
@@ -33,7 +34,7 @@ var finished := false
 const FADE_TIME = 1.0
 const PAUSE_AFTER_WALL = 0.1
 const TURN_SPEED = 6.0
-const TURN_DELAY = 0.2 
+const TURN_DELAY = 0.2
 
 var obstacles: Array = []
 
@@ -104,6 +105,7 @@ func _input(event):
 		_redirect_to_target()
 
 func _spawn_wave(pos: Vector2):
+	_play_one_shot_sfx(ping_sfx, 0.03, 0.05)
 	var wave = Node2D.new()
 	var circle = ColorRect.new()
 	circle.size = Vector2(200, 200)

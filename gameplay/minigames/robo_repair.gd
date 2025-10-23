@@ -23,11 +23,10 @@ var finished := false
 
 var difficulty_settings = {
 	1: {"time_limit": 12.5},
-	2: {"time_limit": 9.0},
-	3: {"time_limit": 6.0}
+	2: {"time_limit": 12.0},
+	3: {"time_limit": 11.5}
 }
 
-# Compass direction mapping for gear indices
 const COMPASS_DIRECTIONS = [
 	"E", "SE", "S", "SW", "W", "NW", "N", "NE"
 ]
@@ -126,7 +125,6 @@ func _display_instructions():
 	label.bbcode_text = text
 
 func _on_gear_changed(_gear_name: String, _pos: String):
-	#print("Gear %s set to %s" % [gear_name, pos])
 	pass
 
 func _on_slider_changed(_value): 

@@ -1,5 +1,8 @@
 extends Minigame
 
+@export var click_sfx: AudioStream = preload("res://assets/minigames/EmailTyper/keypress.mp3")
+@export var slider_sfx: AudioStream = preload("res://assets/minigames/RoboRepair/Gear.mp3")
+
 @onready var power_slider := $CanvasLayer/Control/Power
 @onready var angle_slider := $CanvasLayer/Control/Angle
 @onready var launch_button := $CanvasLayer/Control/Launch
@@ -23,11 +26,15 @@ var game_finished := false
 
 var power_range := Vector2(50, 120)
 var angle_range := Vector2(15, 75)
-var bounds := Rect2(70, 30, 100, 70)
+var bounds := Rect2(80, 30, 90, 70)
 var collision_radius := 15
 
 const FADE_TIME = 1.0
 
+const SLIDER_SFX_STEP := 15.0
+
+var last_power_sfx_value := 0.0
+var last_angle_sfx_value := 0.0
 
 func start():
 	randomize()
@@ -39,6 +46,11 @@ func start():
 		randf_range(bounds.position.x, bounds.end.x),
 		randf_range(bounds.position.y, bounds.end.y)
 	)
+
+	var scale_factor = clamp(1.0 - (difficulty * 0.1), 0.4, 1.0)
+	target.scale = Vector2(scale_factor, scale_factor)
+
+	collision_radius = 15 * scale_factor
 
 	gravity.y = 60 + randf_range(0, difficulty * 10)
 
@@ -62,8 +74,12 @@ func start():
 	_fade_in_music()
 	_update_arc()
 	timer.start()
+
+func _update_arc(value = 0):
+	if abs(value - last_angle_sfx_value) >= SLIDER_SFX_STEP:
+		_play_one_shot_sfx(slider_sfx, 0.05)
+		last_angle_sfx_value = value
 	
-func _update_arc(_v = 0):
 	var angle_deg = lerp(angle_range.x, angle_range.y, angle_slider.value / angle_slider.max_value)
 	var power = lerp(power_range.x, power_range.y, power_slider.value / power_slider.max_value)
 	var angle_rad = deg_to_rad(angle_deg)
@@ -86,6 +102,7 @@ func _on_launch_pressed():
 		return
 
 	_play_one_shot_sfx(fire_sfx)
+	_play_one_shot_sfx(click_sfx)
 	timer.pause_timer()
 
 	launched = true
@@ -131,7 +148,7 @@ func _finish(success: bool):
 
 
 func _reset_projectile():
-	projectile.position = Vector2(25, 100)
+	projectile.position = Vector2(-25, -100)
 	projectile_velocity = Vector2.ZERO
 	launched = false
 	game_finished = false
@@ -166,9 +183,10 @@ func _fade_in_music():
 	var tween = create_tween()
 	tween.tween_property(music_player, "volume_db", Settings.MUSIC_VOLUME_DB, FADE_TIME)
 
-
 func _fade_out_music():
 	var tween = create_tween()
 	tween.tween_property(music_player, "volume_db", -80.0, FADE_TIME)
 	await tween.finished
 	music_player.stop()
+	
+	
