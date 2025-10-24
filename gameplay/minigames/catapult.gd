@@ -104,68 +104,52 @@ func _on_launch_pressed():
 	_play_one_shot_sfx(fire_sfx)
 	_play_one_shot_sfx(click_sfx)
 	timer.pause_timer()
-
 	launched = true
 	var angle_deg = lerp(angle_range.x, angle_range.y, angle_slider.value / angle_slider.max_value)
 	var power = lerp(power_range.x, power_range.y, power_slider.value / power_slider.max_value)
 	var angle_rad = deg_to_rad(angle_deg)
-
 	projectile_velocity = Vector2(cos(angle_rad), -sin(angle_rad)) * power
-
 	projectile.position = launch_pos.global_position
-
 	arc_line.visible = false
 	power_slider.editable = false
 	angle_slider.editable = false
 	launch_button.disabled = true
 
-
-
 func _process(delta):
-	if launched and not game_finished:
+	if launched:
 		projectile.position += projectile_velocity * delta
 		projectile_velocity += gravity * delta
-
-		if projectile.position.y > 190:
-			_finish(false)
-		elif projectile.position.distance_to(target.position) < collision_radius:
-			_finish(true)
-
+		if not game_finished and projectile.position.distance_to(target.position) < collision_radius:
+			_mark_success()
+		if projectile.position.y > 190 or projectile.position.x > 400 or projectile.position.x < -50:
+			if not game_finished:
+				_finish(false)
+			else:
+				_finish(true)
 
 func _finish(success: bool):
-	if game_finished:
+	if not launched:
 		return
-
-	game_finished = true
 	launched = false
-
 	timer.pause_timer()
-	await _fade_out_music()
 	await _play_finish_animation(success)
-
 	emit_signal("minigame_finished", success)
-	_reset_projectile()
-
 
 func _reset_projectile():
 	projectile.position = Vector2(-25, -100)
 	projectile_velocity = Vector2.ZERO
 	launched = false
 	game_finished = false
-
 	arc_line.visible = true
 	power_slider.editable = true
 	angle_slider.editable = true
 	launch_button.disabled = false
-
 	_update_arc()
-
 
 func _on_time_up():
 	if game_finished:
 		return
 	_finish(false)
-
 
 func _play_finish_animation(success: bool):
 	if success:
@@ -173,7 +157,6 @@ func _play_finish_animation(success: bool):
 	else:
 		anim.play("Fail")
 	return await anim.animation_finished
-
 
 func _fade_in_music():
 	music_player.stream = music
@@ -188,5 +171,12 @@ func _fade_out_music():
 	tween.tween_property(music_player, "volume_db", -80.0, FADE_TIME)
 	await tween.finished
 	music_player.stop()
-	
-	
+
+func _mark_success():
+	game_finished = true
+	timer.pause_timer()
+	_fade_out_music()
+	_play_one_shot_sfx(click_sfx)
+	if is_instance_valid(projectile):
+		projectile.queue_free()
+	_finish(true)

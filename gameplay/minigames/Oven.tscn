@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://3pkceulmq6kw" path="res://assets/minigames/Oven/Food.png" id="6_j430x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_usjo3"]
-size = Vector2(21, 24)
+size = Vector2(23, 24)
 
 [sub_resource type="Animation" id="Animation_un7j3"]
 resource_name = "Fail"

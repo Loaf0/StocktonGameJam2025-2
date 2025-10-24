@@ -18,9 +18,9 @@ extends Minigame
 
 
 var difficulty_settings = {
-	1: {"trash_count": 3, "time_limit": 10.0, "speed": 40.0},
-	2: {"trash_count": 4, "time_limit": 9.0, "speed": 55.0},
-	3: {"trash_count": 5, "time_limit": 8.0, "speed": 70.0}
+	1: {"trash_count": 3, "time_limit": 10.0, "speed": 60.0},
+	2: {"trash_count": 4, "time_limit": 9.5, "speed": 60.0},
+	3: {"trash_count": 5, "time_limit": 9.0, "speed": 75.0}
 }
 
 var remaining_trash := 0
@@ -192,7 +192,6 @@ func _on_time_up():
 
 func _play_finish_animation(success: bool):
 	if success:
-		background_sprite.play("shine")
 		anim.play("Pass")
 	else:
 		anim.play("Fail")

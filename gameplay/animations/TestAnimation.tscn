@@ -1,28 +1,213 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4ov6j2xagkbh"]
+[gd_scene load_steps=10 format=3 uid="uid://b4ov6j2xagkbh"]
 
 [ext_resource type="Script" uid="uid://bdrdvmx7jbwsb" path="res://gameplay/coreGameplay/Animation.gd" id="1_rmv5i"]
+[ext_resource type="Texture2D" uid="uid://07cmfplydsht" path="res://assets/coreGameplay/Hat.png" id="2_dqeas"]
+[ext_resource type="FontFile" uid="uid://dpil64o22ebvd" path="res://assets/fonts/ByteBounce.ttf" id="3_m8cdf"]
+[ext_resource type="Texture2D" uid="uid://bw3axnfq60fk0" path="res://gameplay/animations/PassFail.png" id="4_10rgn"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rmv5i"]
-size = Vector2(20, 20)
-
-[sub_resource type="Animation" id="Animation_j0xh4"]
-resource_name = "Fail"
+[sub_resource type="LabelSettings" id="LabelSettings_10rgn"]
+font = ExtResource("3_m8cdf")
+font_size = 32
 
 [sub_resource type="Animation" id="Animation_rmv5i"]
 resource_name = "Pass"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/HealthDisplay:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(110, 25.000061)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/HealthDisplay:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.084258884, 0.93333334, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(45, 224), Vector2(45, 182), Vector2(45, 182), Vector2(45, 222)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Label:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.08666666, 0.93, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -36), Vector2(0, 0), Vector2(0, 0), Vector2(0, -38)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/PassFail:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/PassFail:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.087873295, 0.9366845, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(100, -15), Vector2(100, 19), Vector2(100, 19), Vector2(100, -15)]
+}
 
 [sub_resource type="Animation" id="Animation_k55nu"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/HealthDisplay:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(110, 25.000061)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/HealthDisplay:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(45, 225)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Label:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -36)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/PassFail:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(100, -15)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/PassFail:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_0t8mb"]
+resource_name = "Fail"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/HealthDisplay:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(110, 25.000061)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/HealthDisplay:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 1.4333333, 1.4999999),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(45, 224), Vector2(45, 182), Vector2(45, 182), Vector2(45, 222)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Label:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16592622, 1.43, 1.4999999),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -36), Vector2(0, 0), Vector2(0, 0), Vector2(0, -38)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/PassFail:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.16713285, 1.4319621, 1.4999999),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(100, -15), Vector2(100, 21), Vector2(100, 21), Vector2(100, -15)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/PassFail:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wmb8e"]
 _data = {
-&"Fail": SubResource("Animation_j0xh4"),
+&"Fail": SubResource("Animation_0t8mb"),
 &"Pass": SubResource("Animation_rmv5i"),
 &"RESET": SubResource("Animation_k55nu")
 }
 
 [node name="TestAnimation" type="CanvasLayer"]
-layer = 16
+layer = 28
 script = ExtResource("1_rmv5i")
 
 [node name="Control" type="Control" parent="."]
@@ -41,40 +226,56 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -26.0
-offset_top = -25.000061
-offset_right = 26.0
+offset_left = -55.0
+offset_top = 25.0
+offset_right = 55.0
+offset_bottom = 50.00006
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
-theme_override_constants/separation = 25
+theme_override_constants/separation = 55
 alignment = 1
 
 [node name="Control" type="Control" parent="Control/HealthDisplay"]
 layout_mode = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Control/HealthDisplay/Control"]
-texture = SubResource("PlaceholderTexture2D_rmv5i")
+texture_filter = 3
+texture = ExtResource("2_dqeas")
+vframes = 8
 
 [node name="Control2" type="Control" parent="Control/HealthDisplay"]
 layout_mode = 2
 
-[node name="Sprite2D2" type="Sprite2D" parent="Control/HealthDisplay/Control2"]
-texture = SubResource("PlaceholderTexture2D_rmv5i")
+[node name="Sprite2D" type="Sprite2D" parent="Control/HealthDisplay/Control2"]
+texture_filter = 3
+texture = ExtResource("2_dqeas")
+vframes = 8
 
 [node name="Control3" type="Control" parent="Control/HealthDisplay"]
 layout_mode = 2
 
-[node name="Sprite2D3" type="Sprite2D" parent="Control/HealthDisplay/Control3"]
-texture = SubResource("PlaceholderTexture2D_rmv5i")
+[node name="Sprite2D" type="Sprite2D" parent="Control/HealthDisplay/Control3"]
+texture_filter = 3
+texture = ExtResource("2_dqeas")
+vframes = 8
+
+[node name="PassFail" type="Sprite2D" parent="Control"]
+position = Vector2(100, -15)
+texture = ExtResource("4_10rgn")
+vframes = 2
 
 [node name="Label" type="Label" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.185
+offset_top = -36.0
+offset_bottom = -36.0
 grow_horizontal = 2
-text = "TEST TEXT"
+text = "PASS"
+label_settings = SubResource("LabelSettings_10rgn")
 horizontal_alignment = 1
 vertical_alignment = 1
 

@@ -9,9 +9,10 @@ class_name FlavorAnimation
 func _ready() -> void:
 	$Control.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-func play(sucess : bool, health : int):
-	flavor_type = "Pass" if sucess else "Fail"
-	label.text = "Pass" if sucess else "Fail"
+func play(success: bool, health: int, speed : float = 1):
+	flavor_type = "Pass" if success else "Fail"
+	label.text = flavor_type
+	anim.speed_scale = speed
 	_update_health(health)
 	anim.play(flavor_type)
 	return anim.animation_finished

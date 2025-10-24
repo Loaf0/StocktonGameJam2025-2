@@ -31,7 +31,7 @@ frame_5/duration = 0.1
 texture = SubResource("AnimatedTexture_3sm4m")
 
 [node name="MinigameTimer" type="CanvasLayer"]
-layer = 8
+layer = 12
 script = ExtResource("1_ikv8c")
 
 [node name="Control" type="Control" parent="."]

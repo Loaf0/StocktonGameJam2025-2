@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://m3cob6b5boco"]
+[gd_scene load_steps=14 format=3 uid="uid://m3cob6b5boco"]
 
 [ext_resource type="Script" uid="uid://cr5vh7r3ven0m" path="res://gameplay/minigames/roomba.gd" id="1_fd4hn"]
 [ext_resource type="PackedScene" uid="uid://07ujs6uw6ish" path="res://gameplay/coreGameplay/MinigameTimer.tscn" id="1_vfir0"]
@@ -7,69 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://c0r64bmvv44tu" path="res://assets/minigames/Roomba/lazyboy.png" id="5_monc8"]
 [ext_resource type="Texture2D" uid="uid://bcidb5njuhpbk" path="res://assets/minigames/Roomba/Table with carpet.png" id="6_c3i6q"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4t27p"]
-atlas = ExtResource("2_0lrgr")
-region = Rect2(0, 0, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3wb10"]
-atlas = ExtResource("2_0lrgr")
-region = Rect2(0, 0, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_monc8"]
-atlas = ExtResource("2_0lrgr")
-region = Rect2(0, 200, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c3i6q"]
-atlas = ExtResource("2_0lrgr")
-region = Rect2(0, 400, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3if0f"]
-atlas = ExtResource("2_0lrgr")
-region = Rect2(0, 600, 200, 200)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uxhkk"]
-atlas = ExtResource("2_0lrgr")
-region = Rect2(0, 800, 200, 200)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_monc8"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4t27p")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3wb10")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_monc8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c3i6q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3if0f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uxhkk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3wb10")
-}],
-"loop": false,
-"name": &"shine",
-"speed": 10.0
-}]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxhkk"]
-size = Vector2(89, 47)
+size = Vector2(80, 46)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3if0f"]
-size = Vector2(52, 53)
+size = Vector2(42, 51)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fd4hn"]
 
@@ -80,9 +22,33 @@ length = 0.6
 [sub_resource type="Animation" id="Animation_2pff3"]
 resource_name = "Pass"
 length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.16666667, 0.23333333, 0.3, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 0]
+}
 
 [sub_resource type="Animation" id="Animation_16em2"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_un7j3"]
 _data = {
@@ -94,10 +60,10 @@ _data = {
 [node name="Roomba" type="Node2D"]
 script = ExtResource("1_fd4hn")
 
-[node name="Background" type="AnimatedSprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="."]
 position = Vector2(100, 100)
-sprite_frames = SubResource("SpriteFrames_monc8")
-animation = &"shine"
+texture = ExtResource("2_0lrgr")
+vframes = 5
 
 [node name="MinigameTimer" parent="." instance=ExtResource("1_vfir0")]
 
@@ -111,7 +77,7 @@ texture = ExtResource("6_c3i6q")
 position = Vector2(-1, -69)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/TableWithCarpet/StaticBody2D2"]
-position = Vector2(0.5, 64.5)
+position = Vector2(1, 65)
 shape = SubResource("RectangleShape2D_uxhkk")
 
 [node name="Lazyboy" type="Sprite2D" parent="CanvasLayer"]
@@ -121,7 +87,7 @@ texture = ExtResource("5_monc8")
 [node name="StaticBody2D" type="StaticBody2D" parent="CanvasLayer/Lazyboy"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Lazyboy/StaticBody2D"]
-position = Vector2(0, -4.5)
+position = Vector2(0, -5.5)
 shape = SubResource("RectangleShape2D_3if0f")
 
 [node name="TrashContainer" type="Node2D" parent="CanvasLayer"]

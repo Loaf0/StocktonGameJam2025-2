@@ -1,10 +1,17 @@
 extends Minigame
 
 @export var emails := [
-	"Hi anthony this minigame idea is almost working.",
-	"This email minigame is really hard.",
-	"Thanks for subscribing to kagurabachi weekly facts.",
-	"Hi mom love gamejam guy"
+	"I miss being in the business with my dad",
+	"Prison was not very fun, glad to be out",
+	"Have you ever read the manga KaguraBachi?",
+	"Hi mom love gamejam guy",
+	"Found a great recipe for lasagna",
+	"Cutting the lawn with a laser sword is so fast",
+	"My new roomba is the best on the market",
+	"I dont really understand how my oven works",
+	"My toy Corn Gun Guy is super fun to play with",
+	"The robot repair manual is super complicated",
+	"This new keyboard layout is super weird"
 ]
 
 @export var num_letters_to_type := 5
@@ -13,6 +20,7 @@ extends Minigame
 @onready var music = preload("res://assets/msfx/minigameMusic/email thing.wav")
 
 @onready var key_press_sfx = preload("res://assets/minigames/EmailTyper/keypress.mp3")
+@onready var send_sfx = preload("res://assets/minigames/EmailTyper/email noise.mp3")
 
 @onready var label_email := $CanvasLayer/Label
 @onready var grid := $CanvasLayer/GridContainer
@@ -190,6 +198,7 @@ func _on_time_up() -> void:
 	emit_signal("minigame_finished", false)
 
 func _play_finish_animation(success: bool):
+	_play_one_shot_sfx(send_sfx)
 	if success:
 		anim.play("Pass")
 	else:

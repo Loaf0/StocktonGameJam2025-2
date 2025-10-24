@@ -13,6 +13,7 @@ extends CanvasLayer
 @onready var highscore_medi = $LevelSelect/HighscoreMediLabel
 @onready var highscore_hard = $LevelSelect/HighscoreHardLabel
 
+
 @onready var settings_panel = $Settings
 @onready var volume_slider = $Settings/HSlider
 @onready var settings_back = $Settings/Back
@@ -20,6 +21,17 @@ extends CanvasLayer
 @onready var play_button = $MainMenu/Play
 @onready var settings_button = $MainMenu/Settings
 @onready var quit_button = $MainMenu/Quit
+@onready var story_button = $MainMenu/Story
+@onready var story_button2 = $Intro/Story
+
+@onready var intro = $Intro
+@onready var intro_page1 = $Intro/ColorRect
+@onready var intro_page2 = $Intro/ColorRect2
+@onready var intro_page3 = $Intro/ColorRect3
+@onready var intro_page4 = $Intro/ColorRect4
+
+var intro_pages
+var current_intro_index := 0
 
 var _last_slider_sfx_value := 0.0
 const SLIDER_SFX_STEP := 15.0
@@ -40,7 +52,28 @@ func _ready():
 	quit_button.pressed.connect(func(): _on_button_click(); _on_quit_pressed())
 	
 	volume_slider.connect("value_changed", _on_volume_changed)
+	
+	intro_pages = [intro_page1, intro_page2, intro_page3, intro_page4]
 
+	story_button.pressed.connect(func(): _on_button_click(); _on_story_pressed())
+	story_button2.pressed.connect(func(): _on_button_click(); _on_story_pressed())
+
+	for page in intro_pages:
+		page.visible = true
+
+func _on_story_pressed():
+	_play_one_shot_sfx(click_sfx)
+
+	intro.visible = true
+
+	if current_intro_index < intro_pages.size():
+		intro_pages[current_intro_index].visible = false
+		current_intro_index += 1
+	else:
+		intro.visible = false
+		current_intro_index = 0 
+		for page in intro_pages:
+			page.visible = true
 
 func _update_highscores():
 	var save_manager = get_node_or_null("/root/Save")

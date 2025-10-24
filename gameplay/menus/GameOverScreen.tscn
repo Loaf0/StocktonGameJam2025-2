@@ -1,11 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://b1nrnx4vshkyp"]
+[gd_scene load_steps=16 format=3 uid="uid://b1nrnx4vshkyp"]
 
 [ext_resource type="Script" uid="uid://bf0x61gn2535o" path="res://gameplay/menus/game_over_screen.gd" id="1_ijgdh"]
-[ext_resource type="FontFile" uid="uid://dpil64o22ebvd" path="res://assets/Fonts/ByteBounce.ttf" id="2_8lamq"]
+[ext_resource type="FontFile" uid="uid://dpil64o22ebvd" path="res://assets/fonts/ByteBounce.ttf" id="2_8lamq"]
 [ext_resource type="Texture2D" uid="uid://cif14wa0yq1d4" path="res://assets/Game Over/Game Over.png" id="2_ta5yj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ta5yj"]
 font = ExtResource("2_8lamq")
+font_color = Color(0.54901963, 0.47058824, 0.64705884, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_31u0w"]
+font = ExtResource("2_8lamq")
+font_color = Color(0.0627451, 0.07058824, 0.10980392, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ta5yj"]
 
@@ -43,21 +48,35 @@ color = Color(0.23137255, 0.12156863, 0.45882353, 1)
 position = Vector2(100, 100)
 texture = ExtResource("2_ta5yj")
 
-[node name="TitleLabel" type="Label" parent="."]
-offset_left = -4.0
-offset_top = -46.0
-offset_right = 196.0
-offset_bottom = -3.0
+[node name="HighScore" type="Label" parent="."]
+offset_left = 68.0
+offset_top = 129.0
+offset_right = 132.0
+offset_bottom = 149.0
+text = "000"
 label_settings = SubResource("LabelSettings_ta5yj")
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Difficulty" type="Label" parent="."]
+offset_left = 68.0
+offset_top = 27.0
+offset_right = 132.0
+offset_bottom = 47.0
+text = "000"
+label_settings = SubResource("LabelSettings_31u0w")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="."]
-offset_left = 92.0
-offset_top = 67.0
-offset_right = 110.0
+offset_left = 68.0
+offset_top = 65.0
+offset_right = 132.0
 offset_bottom = 84.0
+text = "000"
 label_settings = SubResource("LabelSettings_ta5yj")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RestartButton" type="Button" parent="."]
 offset_left = 13.0

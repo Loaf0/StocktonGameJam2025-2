@@ -19,9 +19,9 @@ func load_score():
 	if err != OK:
 		return
 	
-	Settings.EASY_SCORE = save_file.get_value("SCORES", "EASY_SCORE")
-	Settings.MEDI_SCORE = save_file.get_value("SCORES", "MEDI_SCORE")
-	Settings.HARD_SCORE = save_file.get_value("SCORES", "HARD_SCORE")
+	Settings.EASY_SCORE = save_file.get_value("SCORES", "EASY_SCORE", 0)
+	Settings.MEDI_SCORE = save_file.get_value("SCORES", "MEDI_SCORE", 0)
+	Settings.HARD_SCORE = save_file.get_value("SCORES", "HARD_SCORE", 0)
 
 func save_settings():
 	print(ProjectSettings.globalize_path("user://save.cfg"))

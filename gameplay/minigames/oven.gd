@@ -35,13 +35,12 @@ var active := [true, true, true]
 var perfect_ranges: Array = []
 
 var difficulty_settings = {
-	1: {"range_size": 0.3, "time_limit": 10.0, "speed": 1.0},
-	2: {"range_size": 0.27, "time_limit": 7.5, "speed": 1.1},
-	3: {"range_size": 0.25, "time_limit": 5.0, "speed": 1.3}
+	1: {"range_size": 0.3, "time_limit": 10.0, "speed": 0.8},
+	2: {"range_size": 0.3, "time_limit": 9.0, "speed": 0.9},
+	3: {"range_size": 0.3, "time_limit": 8.0, "speed": 1.05}
 }
 
 const FADE_TIME = 1.0
-
 
 func start():
 	randomize()
@@ -54,7 +53,6 @@ func start():
 		perfect_ranges.append(Vector2(start_loc, start_loc + size))
 		bounce_speed[i] = speed * settings["speed"] + randf_range(-0.2, 0.2) 
 	
-	#music_player.pitch_scale = speed 
 	_fade_in_music()
 	
 	await _setup_targets()
@@ -117,29 +115,33 @@ func _process(delta: float) -> void:
 			var t := (sin(times[i]) * 0.5) + 0.5 
 			handle.position.x = container_width * t
 
-func _on_button_pressed(i: int):
+func _on_button_pressed(i: int) -> void:
 	if not active[i]:
 		return
-	
+
 	active[i] = false
 	buttons[i].disabled = true
 	lasers[i].visible = true
-	
+
 	_play_one_shot_sfx(laser_sfx, 0.03)
-	
+
 	var tween = create_tween()
 	tween.tween_property(lasers[i], "modulate:a", 0.0, 0.75).set_delay(0.3)
 	tween.finished.connect(func(): lasers[i].visible = false)
-	
-	var raycast = targets[i].get_node("RayCast2D")
+
+	var raycast: RayCast2D = targets[i].get_node("RayCast2D")
+
 	if not raycast.is_colliding():
-		_disable_all_buttons()
+		print("Missed target ", i)
 		timer.stop()
+		_disable_all_buttons()
 		_fade_out_music()
+
+		await tween.finished
 		await _play_finish_animation(false)
 		emit_signal("minigame_finished", false)
 		return
-		
+
 	_check_end_condition()
 
 func _check_end_condition():
