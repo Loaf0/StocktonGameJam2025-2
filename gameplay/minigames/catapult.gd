@@ -116,7 +116,7 @@ func _on_launch_pressed():
 	launch_button.disabled = true
 
 func _process(delta):
-	if launched:
+	if launched and !game_finished:
 		projectile.position += projectile_velocity * delta
 		projectile_velocity += gravity * delta
 		if not game_finished and projectile.position.distance_to(target.position) < collision_radius:
@@ -128,9 +128,10 @@ func _process(delta):
 				_finish(true)
 
 func _finish(success: bool):
-	if not launched:
-		return
-	launched = false
+	launched = true
+	game_finished = true	
+	$CanvasLayer/Control/Power.editable=false 
+	$CanvasLayer/Control/Angle.editable=false
 	timer.pause_timer()
 	await _play_finish_animation(success)
 	emit_signal("minigame_finished", success)
