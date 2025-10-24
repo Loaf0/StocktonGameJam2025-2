@@ -305,12 +305,22 @@ offset_right = 9.0
 offset_bottom = 9.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_usjo3")
 stretch_mode = 2
 
 [node name="RayCast2D" type="RayCast2D" parent="CanvasLayer/ButtonContainer/Marker"]
 position = Vector2(4.5, 4)
 target_position = Vector2(0, 19)
+
+[node name="real" type="TextureRect" parent="CanvasLayer/ButtonContainer/Marker"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = -1
+offset_right = 9.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_usjo3")
+stretch_mode = 2
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="CanvasLayer/ButtonContainer"]
 position = Vector2(27, 6)
@@ -355,12 +365,22 @@ offset_right = 9.0
 offset_bottom = 9.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_usjo3")
 stretch_mode = 2
 
 [node name="RayCast2D" type="RayCast2D" parent="CanvasLayer/ButtonContainer2/Marker"]
 position = Vector2(4.5, 4)
 target_position = Vector2(0, 19)
+
+[node name="real" type="TextureRect" parent="CanvasLayer/ButtonContainer2/Marker"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = -1
+offset_right = 9.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_usjo3")
+stretch_mode = 2
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="CanvasLayer/ButtonContainer2"]
 position = Vector2(27, 6)
@@ -405,12 +425,22 @@ offset_right = 9.0
 offset_bottom = 9.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_usjo3")
 stretch_mode = 2
 
 [node name="RayCast2D" type="RayCast2D" parent="CanvasLayer/ButtonContainer3/Marker"]
 position = Vector2(4.5, 4)
 target_position = Vector2(0, 19)
+
+[node name="real" type="TextureRect" parent="CanvasLayer/ButtonContainer3/Marker"]
+texture_filter = 3
+layout_mode = 1
+anchors_preset = -1
+offset_right = 9.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_usjo3")
+stretch_mode = 2
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="CanvasLayer/ButtonContainer3"]
 position = Vector2(27, 6)

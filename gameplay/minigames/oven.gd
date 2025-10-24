@@ -15,6 +15,11 @@ extends Minigame
 	$CanvasLayer/ButtonContainer2/Marker,
 	$CanvasLayer/ButtonContainer3/Marker
 ]
+@onready var bob_targets := [ 
+	$CanvasLayer/ButtonContainer/Marker/real, 
+	$CanvasLayer/ButtonContainer2/Marker/real, 
+	$CanvasLayer/ButtonContainer3/Marker/real
+]
 @onready var lasers := [ 
 	$CanvasLayer/LaserContainer/Sprite2D,
 	$CanvasLayer/LaserContainer/Sprite2D2,
@@ -61,6 +66,18 @@ func start():
 	timer.time_up.connect(_on_time_up)
 	speed = 1 + ((speed - 1) / 3)
 
+func _physics_process(_delta: float) -> void:
+		for i in range(3):
+			if not is_instance_valid(bob_targets[i]):
+				continue
+		
+			var bob = bob_targets[i]
+			var t = sin(Time.get_ticks_msec() / 500.0 + i * 1.5)  # Offset each target for variety
+			var y_offset = t * 1.0  # Vertical bobbing amount (pixels)
+			var scale_amount = 1.0 + (t * 0.05)  # Subtle scaling
+			
+			bob.position.y = y_offset
+			bob.scale = Vector2(scale_amount, scale_amount)
 
 func _fade_in_music():
 	music_player.stream = music
